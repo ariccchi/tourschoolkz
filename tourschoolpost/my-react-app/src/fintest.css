@@ -1,0 +1,122 @@
+.progress-bartest {
+    background-color: rgb(242, 154, 46);
+    border-radius: 200px;
+    height: 20px;
+    z-index: 1;
+}
+.full-pagetest {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.containertest {
+ width: 70%;
+}
+
+.progress-barnorm {
+    /* border: 1px rgb(57, 70, 59) solid; */
+    border-radius: 200px;
+    background-color: #e1e1e1;
+    z-index: 1;
+}
+
+.answersvar {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.answersvar button {
+    border-radius: 22px;
+background: rgb(244, 212, 173);
+/* button */
+
+padding: 30px 0;
+width: 265px;
+color: #3c3c3c;
+z-index: 1;
+/* h2 podzag */
+font-family: Rubik;
+font-size: 15px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+margin: 35px 92px;
+}
+
+
+.questionfin {
+    color: #000;
+
+    /* h2 podzag */
+    font-family: Rubik;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.24px;
+    margin-top: 10%;
+    z-index: 1;
+    text-align: center;
+}
+@media screen and (max-width: 768px) {
+  
+
+    .answersvar button {
+        margin: 35px 10px;
+    }
+  }
+
+  .answersvar  button.incorrect {
+    background-color: lightcoral;
+  }
+  .answersvar button.correct {
+    background-color: lightgreen;
+    color: #000000;
+}
+
+
+.buttoncontin button {
+    border-radius: 22px;
+background:rgb(244, 212, 173);
+/* button */
+box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+padding: 30px 0;
+width: 265px;
+color: #000000;
+
+/* h2 podzag */
+font-family: Rubik;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+margin: 35px 92px;
+z-index: 2;
+}
+
+
+.buttoncontin {
+    display: flex;
+    justify-content: center;
+}
+.form7 {
+    position: absolute;
+    top: -111px; /* Пример: отступ сверху */
+    left: 50px; /* Пример: отступ слева */
+    z-index: 0; /* Поместить круг за содержимым */
+    width: 100%;
+  }
+
+  .form8 {
+    position: absolute;
+    bottom: -10px;
+    left: 50px; /* Пример: отступ слева */
+    z-index: 0; /* Поместить круг за содержимым */
+    width: 100%;
+  }

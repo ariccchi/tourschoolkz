@@ -1,0 +1,168 @@
+.titlecourse {
+    color: var(--dark-col, #014034);
+
+/* Заг h2 */
+font-family: Rubik;
+font-size: 48px;
+font-style: normal;
+font-weight: 800;
+line-height: normal;
+letter-spacing: 0.48px;
+margin-top: 50px;
+}
+
+.containersta {
+    margin-top: 50px;
+    display: grid;
+    grid-gap: 10px;
+    padding: 40px;
+}
+@media screen and (max-width: 768px) {
+  .containersta {
+    margin-left: 0;
+    align-items: center;
+  }
+}
+
+.imagecourse {
+    background-color: gray;
+    width: 584px;
+    height: 408px;
+    transition: width 0.5s ease, height 0.5s ease; /* Плавный переход ширины и высоты за 0.5 секунды с эффектом ease */
+}
+
+@media (max-width: 768px) {
+    .imagecourse {
+        width: 337px;
+        height: 235px; /* Фиксированная высота в медиа-запросе */
+    }
+}
+.description {
+    width: 100%;
+    white-space: pre-line;
+
+    margin-top: 10px; /* Пример отступа сверху */
+
+    margin-bottom: 10px; /* Пример отступа снизу */
+}
+.rightcont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  
+}
+
+.description {
+    color: #000;
+
+/* h3 text */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+letter-spacing: 0.18px;
+margin-top: 40px;
+}
+.conttop {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+
+.titlecoursemini {
+    color: #000;
+
+/* h2 podzag */
+font-family: Rubik;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+}
+
+.coursetype {
+    color: #6F6F6F;
+
+/* h3 text */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+letter-spacing: 0.18px;
+}
+
+.lessinfo {
+    color: #686868;
+
+/* h3 text */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+letter-spacing: 0.18px;
+}
+
+.timeinfo {
+    color: #686868;
+
+/* h3 text */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+letter-spacing: 0.18px;
+}
+
+
+.buttontostart {
+    color: #000;
+    font-family: Rubik;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.18px;
+    width: 256px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 55px;
+    background: var(--maincol, #F7F9EF);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+  
+    /* Добавленные свойства для центрирования текста */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+.lessandtime {
+    display: flex;
+}
+.courseinfo {
+    display: flex;
+    flex-direction: column;
+}
+.timeinfo {
+    padding: 20px;
+}
+
+.buttontostart {
+   margin-top: auto;
+
+}
+
+.containerstartcourse {
+    margin-left: 200px;
+}

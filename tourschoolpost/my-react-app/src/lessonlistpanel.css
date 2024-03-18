@@ -1,0 +1,244 @@
+.lessonblock {
+    width: 100%;
+    height: auto;
+    border-radius: 23px;
+background: var(--maincol, #F7F9EF);
+/* button */
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+margin-top: 72px;
+display: flex;
+padding:  20px;
+justify-content: space-between;
+flex-wrap: wrap;
+align-items: center;
+
+
+}
+
+.lessonRightblock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* выравнивание элементов по левому краю */
+  flex: 1;
+}
+.LessonTitle {
+    color: #000;
+
+/* h2 podzag */
+font-family: Rubik;
+font-size: 22px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+}
+.Container {
+    margin-left: 160px;
+    margin-top: 50px;
+    margin-right: 160px;
+   
+}@media screen and (max-width: 768px) {
+    .Container {
+      margin-left: 0;
+      margin-right: 10px;
+      align-items: center;
+    }
+  }
+
+  .lessonstatus {
+    color: #767676;
+    /* h3 text */
+    font-family: Rubik;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.18px;
+  }
+  
+
+  .leftblock {
+    flex: 1;
+   width: auto;
+   display: flex;
+   justify-content: center;
+   align-items: flex-end; 
+    flex-direction: column;
+    text-align: center;
+ 
+  }
+  .lessonresult {
+    align-self: center;
+    border-bottom: 2px yellow solid;
+    margin-top: 10px; /* Добавлено отступ сверху для улучшения визуального восприятия */
+    color: var(--h, #0D130D);
+/* р3 зщвяфп */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.18px;
+    align-self: flex-end;
+}
+@media screen and (max-width: 768px) {
+  .lessonblock {
+      flex-direction: column; /* элементы располагаются вертикально */
+  }
+  .lessonRightblock, .leftblock {
+      align-items: center; /* выравнивание элементов по центру */
+  }
+  .leftblock {
+    align-items: center; /* выравнивание элементов по центру при адаптивности */
+}
+.lessonresult {
+    align-self: center; /* выравнивание по центру при адаптивности */
+}
+/* остальные стили */
+  /* остальные стили */
+}
+
+.statusinfo {
+  margin-top: 10px;
+  display: flex;
+  border-radius: 69px;
+  background: var(--maincol, #F7F9EF);
+  box-shadow: 0px 4px 7.4px -3px #F2CD5C;
+}
+
+.lessonstatus2 {
+  color: #000;
+/* h3 text */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+letter-spacing: 0.18px;
+}
+.Addlessonbutton {
+  width: 20%;
+  height: 50px;
+  border-radius: 23px;
+background: var(--maincol, #F7F9EF);
+/* button */
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+color: #737373;
+
+/* h2 podzag */
+font-family: Rubik;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+  margin-bottom: -150px;
+}
+.Addlessonbutton {
+  width: 20%;
+  height: 50px;
+  border-radius: 23px;
+background: var(--maincol, #F7F9EF);
+/* button */
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+color: #737373;
+
+/* h2 podzag */
+font-family: Rubik;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+  margin-bottom: -150px;
+  cursor: pointer;
+}
+
+.Addlessonbutton:hover {
+  color: black;
+}
+
+.titlefortextlesson {
+  color: var(--dark-col, #000000);
+  font-family: Rubik;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.48px;
+}
+
+.fileinfo {
+  z-index: 2;
+  color: #000000;
+  font-family: Rubik;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.24px;
+ 
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.containerfortextlesson {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.filetext {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;  width: 500px;
+  height: 50px;
+  border-radius: 23px;
+background: var(--maincol, #F7F9EF);
+/* button */
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+z-index: 2;
+color: #000000;
+margin-top: 300px;
+text-align: center;
+font-family: Rubik;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+color: black;
+}
+
+
+.filetest {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+  width: 500px;
+  height: 50px;
+  border-radius: 23px;
+background: var(--maincol, #F7F9EF);
+/* button */
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+z-index: 2;
+
+color: #000000;
+margin-top: 300px;
+text-align: center;
+font-family: Rubik;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+color: black;
+}
+

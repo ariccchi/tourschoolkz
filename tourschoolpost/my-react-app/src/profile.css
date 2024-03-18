@@ -1,0 +1,90 @@
+.containerprofile {
+  width: 100%;
+  margin-left: 200px;
+  margin-top: 74px;
+}
+
+.photoanddannie {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+}
+
+.avatarphoto {
+  display: flex;
+  flex-direction: column;
+}
+
+.h3avatar {
+  color: rgb(110, 112, 115);
+font-family: Rubik;
+font-size: 16px;
+font-weight: 400;
+line-height: 23px;
+letter-spacing: 0px;
+text-align: left;
+}
+
+.avatarprofile {
+  width: 300px;
+  height: 300px;
+  margin-top: 24px;
+}
+
+.changeavatar {
+  display: flex;
+  margin-top: 24px;
+}
+
+.changetext {
+  color: rgb(89, 144, 217);
+font-family: Rubik;
+font-size: 16px;
+font-weight: 400;
+line-height: 23px;
+letter-spacing: 0px;
+text-align: center;
+}
+
+.graydani {
+  color: rgb(110, 112, 115);
+font-family: Rubik;
+font-size: 16px;
+font-weight: 300;
+line-height: 19px;
+letter-spacing: 0px;
+text-align: left;
+}
+
+.danicont {
+
+}
+
+.danni {
+  color: rgb(110, 112, 115);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 500;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: left;
+}
+
+.dannie {
+  margin-top: 68px;
+}
+
+.danicont {
+  margin-top: 20px;
+}
+
+.danidb {
+  color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 16px;
+font-weight: 300;
+line-height: 19px;
+letter-spacing: 0px;
+text-align: left;
+margin-top: 10px;
+}
