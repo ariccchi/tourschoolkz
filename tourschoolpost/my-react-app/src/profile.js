@@ -3,7 +3,7 @@ import Navpanmini from './navpanmini';
 import { jwtDecode } from 'jwt-decode';
 import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-router-dom';
 import './profile.css';
-
+import axios from 'axios';
 function Profile() {
     const token = localStorage.getItem('token');
     const [data, setData] = useState([]);
@@ -14,11 +14,14 @@ function Profile() {
     const role = decodedToken.role;
     const name = decodedToken.name;
     const surname = decodedToken.surname;
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedNav, setSelectedNav] = useState('all');
     const [Curatordata, setCuratorData] = useState([]);
     const [Admindata, setAdminData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showRightChats, setShowRightChats] = useState(true);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImageToDB, setSelectedImageToDB] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -110,11 +113,30 @@ function Profile() {
 
         fetchData();
     }, [id]);
-
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const handleCloseModal = () => {
+        setIsModalOpen(false);
+      };
     console.log(data2);
     const avatarSrc = data.avatar ? `http://localhost:8888/tourschoolphp/${data.avatar}` : null;
-
-    console.log(avatarSrc);
+    const roleNames = {
+        student: 'Студент',
+        curator: 'Куратор',
+        admin: 'Администратор'
+      };
+      
+      // Получение русского названия роли
+    const russianRole = data[0]?.role ? roleNames[data[0].role] : '';
+    // Преобразование формата даты
+    const birthdate = data[0]?.birthdate ? new Date(data[0].birthdate) : null;
+    // Преобразование формата даты
+    const formattedBirthdate = birthdate ? `${birthdate.getDate()}.${(birthdate.getMonth() + 1).toString().padStart(2, '0')}.${birthdate.getFullYear()}` : '';
+    const isCurator = data2[0]?.role === 'curator';
+    const isAdmin = data2[0]?.role === 'admin';
+    console.log(data[0]?.role);
     const handleNavClick = (nav) => {
         setSelectedNav(nav);
         setShowRightChats(!showRightChats);
@@ -123,13 +145,57 @@ function Profile() {
         setShowRightChats(!showRightChats);
     };
     console.log(data3);
+     
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+    
+        // Проверка на размер файла (не более 5MB)
+        if (file && file.size > 5 * 1024 * 1024) {
+          alert('Файл слишком большой. Выберите файл размером менее 5MB.');
+          return;
+        }
+    
+        // Создание объекта URL для отображения изображения
+        const imageUrl = URL.createObjectURL(file);
+    
+        // Сохранение изображения в состояние
+        setSelectedImage(imageUrl);
+        setSelectedImageToDB(file)
+        // Дополнительная логика (если нужно)
+      };
+    const handleSaveImage = async () => {
+        try {
+          const formData = new FormData();
+          formData.append('image', selectedImageToDB);
+          formData.append('user_id', id)
+      
+          const response = await axios.post(
+            'http://localhost:8888/tourschoolphp/addAvatar.php',
+            formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          );
+      
+          window.location.reload();
+      
+        } catch (error) {
+          console.error('Error sending message:', error);
+        }
+      
+        handleCloseModal();
+      };
+      console.log(Admindata);
+
     return (
         <div className="containerprofile">
             <div className="photoanddannie">
                 <div className="avatarphoto">
                     <div className="h3avatar">Фото профиля</div>
                     <img className="avatarprofile" src={avatarSrc} alt="Avatar"></img>
-                    <div className="changeavatar">
+                    <div className="changeavatar" onClick={handleOpenModal}>
                         <img className="changeimg" alt="avatarka" src="/imgavatar.svg"></img>
                         <div className="changetext">Изменить фото профиля</div>
                     </div>
@@ -159,11 +225,11 @@ function Profile() {
             </div>
             <div className="coursesandstudents">
                     <div className="coursesprofile">
-                        <div className="h3coursesprofile">Мои курсы</div>
+                        <div className="h3avatar">Мои курсы</div>
                         <div className="coursesprofilelist">
                         {data3.map((course, index) => (
   <Link key={course.id || index} to={`/courses/${course.course_name.replace(/\s+/g, '-')}`}>
-    <div className='lessonblock'>
+    <div className='lessonblockprofile'>
       <div className='lessonRightblock'>
         <div className='LessonTitle'>{course.course_name}</div>
         <div className='statusinfo'>
@@ -176,16 +242,80 @@ function Profile() {
           </div>
         </div>
       </div>
-      <div className='leftblock'>
-        {/* {isCompleted && <div className='lessonresult'>Результат %</div>} */}
-      </div>
+    
     </div>
+    
   </Link>
 ))}
                         </div>
                     </div>
+
+                    <div className="studentsprofile">
+                    {isCurator || isAdmin && (
+                        <div className="h3avatar">Мои ученики</div>
+                        )}
+                        <div className="coursesprofilelist">
+                        {isCurator || isAdmin && (
+    <>
+     
+        {Curatordata.map((student, index) => (
+
+<Link to={`/profile/${student.id}`} key={index}>
+            <div className="birthprofile" key={index}>
+                <div className="happybirth">
+                    {student.name} {student.surname}
+                </div>
+            </div>
+            </Link>
+        ))}
+    </>
+)}
+{isAdmin && (
+    <>
+        <div className="infoprofile">
+          
+        </div>
+        {Admindata.map((student, index) => (
+
+<Link to={`/profile/${student.id}`} key={index}>
+            <div className="birthprofile" key={index}>
+                <div className="happybirth">
+                    {student.name} {student.surname}
+                </div>
+            </div>
+            </Link>
+        ))}
+    </>
+)}
+                        </div>
+                    </div>
             </div>
             <Navpanmini />
+            {isModalOpen && (
+  <div className="modal-info-overlayava">
+    <div className="modal-infoava">
+      <span className="close-buttonava" onClick={handleCloseModal}>
+        &times;
+      </span>
+      <input
+        type="file"
+        className="filediv"
+        accept="image/*"
+        onChange={handleImageUpload}
+      />
+
+      {/* Отображение загруженного изображения */}
+      {selectedImage && (
+        <img className="imgavatar" src={selectedImage} alt="Uploaded" />
+      )}
+
+      {/* Save button */}
+      <button className="save-button" onClick={handleSaveImage}>
+        Сохранить
+      </button>
+    </div>
+  </div>
+)}
         </div>
     );
 }
