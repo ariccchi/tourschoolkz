@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import Navpanmini from './navpanmini';
 import { jwtDecode } from 'jwt-decode';
 import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import './profile.css';
 import axios from 'axios';
 import StudentList from "./studentlist";
-function Profile() {
+function Studprof() {
     const token = localStorage.getItem('token');
     const [data, setData] = useState([]);
     const [data2, setData2] = useState([]);
     const [data3, setData3] = useState([]);
+    const { person } = useParams();
     const decodedToken = jwtDecode(token);
     const id = decodedToken.sub;
     const role = decodedToken.role;
@@ -32,7 +34,7 @@ function Profile() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ user: id }),
+                    body: JSON.stringify({ user: person }),
                 });
 
                 const data = await response.json();
@@ -47,7 +49,7 @@ function Profile() {
         }
 
         fetchData();
-    }, [id]);
+    }, [person]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -56,7 +58,7 @@ function Profile() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ user: id }),
+                    body: JSON.stringify({ user: person }),
                 });
 
                 const data2 = await response.json();
@@ -76,7 +78,7 @@ function Profile() {
                   headers: {
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify({ user: id }),
+                  body: JSON.stringify({ user: person }),
                 });
         
                 const data3 = await response.json();
@@ -90,7 +92,7 @@ function Profile() {
         }
 
         fetchData();
-    }, [id]);
+    }, [person]);
     const handleOpenModal = () => {
         setIsModalOpen(true);
       };
@@ -107,7 +109,7 @@ function Profile() {
       };
       
       // Получение русского названия роли
-    const russianRole = data[0]?.role ? roleNames[data[0].role] : '';
+    const russianRole = data2[0]?.role ? roleNames[data2[0].role] : '';
     // Преобразование формата даты
     const birthdate = data[0]?.birthdate ? new Date(data[0].birthdate) : null;
     // Преобразование формата даты
@@ -145,7 +147,7 @@ function Profile() {
         try {
           const formData = new FormData();
           formData.append('image', selectedImageToDB);
-          formData.append('user_id', id)
+          formData.append('user_id', person)
       
           const response = await axios.post(
             'http://localhost:8888/tourschoolphp/addAvatar.php',
@@ -181,7 +183,7 @@ function Profile() {
 
                 {data2 && data2.length > 0 && (
                     <div className="dannie">
-                        <div className="danni">Мои данные</div>
+                        <div className="danni">Данные пользователя</div>
                         <div className="danicont">
                             <div className="graydani">Имя</div>
                             <div className="danidb">{data2[0].name}</div>
@@ -194,46 +196,53 @@ function Profile() {
                             <div className="graydani">Email</div>
                             <div className="danidb">{data2[0].email}</div>
                         </div>
+                        {data2[0].curator_name && (
                         <div className="danicont">
                             <div className="graydani">Куратор</div>
                             <div className="danidb">{data2[0].curator_name} {data2[0].curator_surname}</div>
+                        </div>
+                        )}
+                         <div className="danicont">
+                            <div className="graydani">Роль</div>
+                            <div className="danidb">{russianRole}</div>
                         </div>
                     </div>
                 )}
             </div>
             <div className="coursesandstudents">
                     <div className="coursesprofile">
-                        <div className="h3avatar">Мои курсы</div>
+                        <div className="h3avatar">Курсы пользователя</div>
                         <div className="coursesprofilelist">
-                        {data3.map((course, index) => (
-  <Link key={course.id || index} to={`/courses/${course.course_name.replace(/\s+/g, '-')}`}>
-    <div className='lessonblockprofile'>
-      <div className='lessonRightblock'>
-        <div className='LessonTitle'>{course.course_name}</div>
-        <div className='statusinfo'>
-          <div className='lessonstatus'>Прогресс:</div>
-          <div className='lessonstatus2'>
-            {course.lesson_count > 0 ?
-              `${course.completed_lesson_count}/${course.lesson_count} (${Math.round((course.completed_lesson_count / course.lesson_count) * 100)}%)` :
-              `0/0 (0%)`
-            }
-          </div>
-        </div>
-      </div>
-    
-    </div>
-    
-  </Link>
-))}
+                        {Array.isArray(data3) && data3.length > 0 ? (
+    data3.map((course, index) => (
+        <Link key={course.id || index} to={`/courses/${course.course_name.replace(/\s+/g, '-')}`}>
+            <div className='lessonblockprofile'>
+                <div className='lessonRightblock'>
+                    <div className='LessonTitle'>{course.course_name}</div>
+                    <div className='statusinfo'>
+                        <div className='lessonstatus'>Прогресс:</div>
+                        <div className='lessonstatus2'>
+                            {course.lesson_count > 0 ?
+                                `${course.completed_lesson_count}/${course.lesson_count} (${Math.round((course.completed_lesson_count / course.lesson_count) * 100)}%)` :
+                                `0/0 (0%)`
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Link>
+    ))
+) : (
+    <div>Этот пользователь еще не начал ни одного курса</div>
+)}
                         </div>
                     </div>
                     {(isAdmin || isCurator) && (
                              <>
-                         <div className="danni2">Мои ученики</div>
+                         <div className="danni2">Ученики пользователя</div>
                     <div className="studentsprofile">
-
                    
-               
+            
                      
         <StudentList complexArray={data2} />
    
@@ -274,4 +283,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default Studprof;
