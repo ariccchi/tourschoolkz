@@ -5,7 +5,9 @@ import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-rout
 import {useParams} from 'react-router-dom';
 import './profile.css';
 import axios from 'axios';
+const [datame, setDatame] = useState([]);
 import StudentList from "./studentlist";
+import BlockUser from "./redactstudentinfo";
 function Studprof() {
     const token = localStorage.getItem('token');
     const [data, setData] = useState([]);
@@ -64,7 +66,16 @@ function Studprof() {
                 const data2 = await response.json();
                 setData2(data2);
 
-              
+                const responseme = await fetch('http://localhost:8888/tourschoolphp/myuserinfo.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ user: id }),
+                });
+
+                const datame = await responseme.json();
+                setDatame(datame);
                 
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
@@ -250,6 +261,12 @@ function Studprof() {
 
                    
                     </div>
+                    <BlockUser 
+  value1={person} 
+  value2={id} 
+  value3={data2} 
+  value4={datame}
+/>
                     </>
                     )}
             </div>
