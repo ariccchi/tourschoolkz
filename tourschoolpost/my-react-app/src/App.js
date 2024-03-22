@@ -11,6 +11,7 @@ import SummaryPage from './SummaryPage';
 import Finaltest from './finaltest';
 import Lessonpdf from './lessonpdf';
 import Studprof from './studentsprof';
+import Messages from './messages';
 function App() {
     return (
         <div className="App">
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/registration" element={<Registration />} />
                     <Route path = "/profile" element={<Profile/>}/>
                     <Route path = "/profile/:person" element={<Studprof/>}/>
+                    <Route path = "/messages" element={<Messages/>}/>
                     <Route path = "/courses" element={<Courses/>}/>
                     <Route path="/courses/:title" element={<LessonListPage/>}></Route>
                     <Route path="/courses/:title/:lesson" element={<LessonMain/>}></Route>

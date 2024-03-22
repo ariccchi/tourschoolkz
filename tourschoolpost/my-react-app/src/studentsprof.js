@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-rout
 import {useParams} from 'react-router-dom';
 import './profile.css';
 import axios from 'axios';
-const [datame, setDatame] = useState([]);
+
 import StudentList from "./studentlist";
 import BlockUser from "./redactstudentinfo";
 function Studprof() {
@@ -14,6 +14,7 @@ function Studprof() {
     const [data2, setData2] = useState([]);
     const [data3, setData3] = useState([]);
     const { person } = useParams();
+    const [datame, setDatame] = useState([]);
     const decodedToken = jwtDecode(token);
     const id = decodedToken.sub;
     const role = decodedToken.role;
@@ -219,6 +220,13 @@ function Studprof() {
                         </div>
                     </div>
                 )}
+                 <BlockUser 
+                
+  value1={person} 
+  value2={id} 
+  value3={data2} 
+  value4={datame}
+/>
             </div>
             <div className="coursesandstudents">
                     <div className="coursesprofile">
@@ -261,14 +269,10 @@ function Studprof() {
 
                    
                     </div>
-                    <BlockUser 
-  value1={person} 
-  value2={id} 
-  value3={data2} 
-  value4={datame}
-/>
+               
                     </>
                     )}
+                        
             </div>
             <Navpanmini />
             {isModalOpen && (

@@ -1,0 +1,601 @@
+
+
+.couratorjs {
+    margin-left: 140px;
+    display: flex;
+    height: 100%;
+  }
+  
+  .leftchat {
+    margin-right: 10px;
+    flex: 1;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+justify-content: center;
+align-items: center;
+  }
+  
+  .rightchats {
+    margin-right: 5px;
+    border-radius: 5px;
+    background: var(--maincol, #F7F9EF);
+    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 100vh;
+    width: 380px;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden; /* добавьте эту строку */
+  }
+  
+  
+  .chat-messages {
+    width: 100%;
+    height: 80vh;
+    overflow: scroll;
+    padding-top: 10px; /* Пример значения отступа, подберите под ваши нужды */
+  }
+  
+  .notification-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  .student-item {
+    cursor: pointer;
+    padding: 10px;
+    background: var(--maincol, #F7F9EF);
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    height: 50px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .student-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .student-name {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 500;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: left;
+  }
+    
+  .student-name2 {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 16px;
+font-weight: 500;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: left;
+  }
+  
+  .notification-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  .chath {
+    color: #000;
+    font-family: Rubik;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    letter-spacing: 0.48px;
+    margin-bottom: 38px;
+    margin-left: 20px;
+  }
+  
+  .chatinfousers {
+    height: 100%;
+    margin-top: 38px;
+  }
+  
+  .avatarka {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 200px;
+    background-color: #797979;
+    overflow: hidden; /* Обрезаем изображение по границам блока */
+  }
+  
+  .avamessages {
+    width: 100%; /* Занимает 100% ширины родительского блока */
+    height: 100%; /* Занимает 100% высоты родительского блока */
+    object-fit: cover; /* Заполняет блок сохраняя соотношение сторон и обрезая изображение при необходимости */
+    border-radius: 200px; /* Обрезаем изображение по кругу */
+  }
+  
+  
+  .student-name {
+    color: #000;
+    font-family: Rubik;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.18px;
+    margin-left: 25px;
+  }
+  
+
+  
+  .student-item.selected {
+        background-color:#1F1F1F;
+  }
+  
+  .student-item.selected .student-name {
+    color: var(--maincol, #F7F9EF);
+
+    /* р3 зщвяфп */
+    font-family: Rubik;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.18px;
+  }
+
+  .rightchats {
+    box-sizing: content-box; /* или border-box, в зависимости от ваших предпочтений */
+    /* Ваши текущие стили для .rightchats */
+    overflow: scroll;
+  }
+  
+
+  
+  
+  .chat-input textarea {
+    margin-top: 0;
+    color: black;
+    width: 100%;
+    margin-right: 40px;
+    border: none; /* Убирает обводку */
+    resize: none; /* Запрещает изменение размера */
+    outline: none; /* Убирает внутренний фокусовый контур (outline) */
+}
+  .chat-input textarea:focus {
+    outline: none; /* Убираем стандартное подчеркивание при фокусе (необязательно) */
+    border-bottom: 0; /* Убираем нижнюю границу при фокусе */
+  }
+
+  
+  .chat-input textarea::placeholder {
+    color: #868686; /* Или любой другой цвет, который вам нужен */
+  }
+  .chat-input {
+    position: relative;
+    width: 80%;
+    height: 59px;
+    flex-shrink: 0;
+    align-self: center;
+    border-radius: 23px;
+    background: var(--maincol, #F7F9EF);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: black;
+    margin-bottom: 0px;
+  }
+  
+  .yellowbuttonchat {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: yellow;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .yellowbuttonchat img {
+    width: 70%;
+    height: auto;
+  }
+  
+  .modal2 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  
+  .outgoing-text {
+    background-color: rgb(89, 144, 217);
+    border-radius: 36px;
+    width: fit-content;
+    margin-left: auto; 
+    min-width: 150px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    flex-direction: column; /* Пример: добавьте padding 10px */
+    max-width: 600px;
+    margin-top: 30px;
+    color: rgb(255, 255, 255);
+    font-family: Rubik;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+    
+ 
+  }
+  
+  .incoming-text {
+    border-radius: 36px;
+    background-color: #D8D8D8;
+    width: fit-content;
+    margin-right: auto;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; 
+    flex-direction: column;
+    /* Пример: добавьте padding 10px */
+    max-width: 600px;
+    margin-top: 30px;
+
+  }
+  
+.message-date {
+  margin-left: auto;
+  opacity: 50%;
+}
+
+.topnamestud {
+  margin-bottom: 0;
+  width: 100%;
+  height: 14%;
+
+  background: var(--maincol, #F7F9EF);
+  display: flex; /* Добавлено для использования flexbox */
+  align-items: center; /* Выравнивание по вертикали по центру */
+  /* button */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.roundavatarka {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  background-color: #5e5e5e;
+  border-radius: 100px;
+  margin-left: 40px; /* Регулируйте отступ, чтобы разместить блок горизонтально */
+}
+
+.topnamestud h2 {
+  margin-left: 50px;
+  margin-bottom: 20px;
+  margin-top: -10px; /* Регулируйте значение, чтобы поднять текст выше */
+}
+
+/* Для мобильных устройств */
+@media screen and (max-width: 768px) {
+  
+
+  .couratorjs {
+    margin-left: 0;
+  }
+}
+
+
+.hamburgerchat {
+  display: none;
+  background-color: transparent;
+  border: none;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 2; /* Выше чем правый блок */
+}
+
+.hamburgerchat img {
+  width: 30px; /* Или настройте размер изображения по вашему усмотрению */
+  height: auto;
+}
+
+/* Для мобильных устройств */
+@media screen and (max-width: 1200px) {
+  .hamburgerchat {
+    display: block; /* Показывает кнопку на мобильных устройствах */
+  }
+
+  .couratorjs {
+    flex-direction: column-reverse; /* Изменение направления flex-контейнера для столбца */
+  }
+
+  .leftchat {
+    order: 2; /* Меняет порядок левого блока на мобильных устройствах */
+  }
+
+  .rightchats {
+    width: 100%; /* Занимает 100% ширины экрана */
+    height: 100%; /* Занимает 100% высоты экрана */
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1; /* Ниже чем кнопка */
+  }
+
+  .rightchats.show {
+    transform: translateX(0);
+  }
+  .file-container.outgoing-file {
+    z-index: 0; /* or a value appropriate for your layout */ 
+
+  }
+  
+  .chat-input {
+    z-index: 0; /* or a value appropriate for your layout */
+  }
+  .modal4 {
+    z-index: 1;
+  }  
+}
+.modal-overlay4
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.yellowbuttonchat2 {
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: yellow;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+.yellowbuttonchat2 img {
+  width: 70%;
+  height: auto;
+}
+.alltextandyellow {
+  width: 90%;
+  display: flex;
+}
+
+.uploading-indicator {
+  margin-top: 5px;
+  color: #333;
+  font-size: 12px;
+}
+
+.uploaded-file {
+  margin-top: 5px;
+  color: #007bff;
+  font-size: 12px;
+}
+
+.file-container {
+  order: -1;
+}
+
+.outgoing-file {
+  background-color: rgb(255, 255, 255);
+  border-radius: 36px;
+  width: 90%;
+
+  min-width: 150px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  flex-direction: column; /* Пример: добавьте padding 10px */
+
+}
+.incoming-file {
+  background-color: #F2CD5C;
+  border-radius: 36px;
+  width: 70%;
+  margin-left: auto; 
+  min-width: 150px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  flex-direction: column; /* Пример: добавьте padding 10px */
+
+}
+.outgoing-file img{
+
+  width: 90%;
+ 
+
+}
+/* Add these styles to your CSS */
+.chat-modal {
+  z-index: 1; /* or any value appropriate for your layout */
+}
+
+.attached-file-modal {
+  z-index: 0; /* or a lower value than the chat modal */
+}
+
+.incoming-file {
+  border-radius: 36px;
+  background-color: #D8D8D8;
+  width: fit-content;
+  margin-right: auto;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; 
+  flex-direction: column;
+}
+.incoming-file img{
+
+  width: 90%;
+ 
+
+}
+
+/* Ваш стиль для изменения цвета и стиля ссылки */
+.ahrew {
+  color: black;
+  background-color: #f0f0f0;
+width: 70%;
+height: 60px;
+text-align: center;
+  text-decoration: none; /* Убирает подчеркивание, которое обычно присутствует в стандартных ссылках */
+  border-radius: 20px;
+}
+
+/* Если вы хотите добавить подчеркивание при наведении */
+.ahrew:hover {
+  text-decoration: underline;
+}
+/* Стили для скрытого пути */
+.hidden-path {
+  visibility: hidden;
+  display: inline-block; /* Чтобы сохранить расположение текста на странице */
+}
+
+
+.file-container {
+  position: relative;
+
+    /* other styles */
+    order: 0; /* or remove this line if you want to keep the default order */
+  
+  
+}
+
+.forw {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 30px !important;
+  height: 30px !important;
+  margin-right: 10px !important;
+}
+
+.picturemess {
+  min-width: 200px;
+}
+.modal4 {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.rightchats2 {
+  margin-right: 5px;
+  border-radius: 5px;
+  background: var(--maincol, #F7F9EF);
+  box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 100vh;
+  width: 100%;
+  padding: 10px;
+  overflow-y: auto;
+  overflow-x: hidden; /* добавьте эту строку */
+  order: 1;
+}
+.file-container.outgoing-file {
+  z-index: 0; /* or a value appropriate for your layout */
+}
+
+.chat-input {
+  z-index: 0; /* or a value appropriate for your layout */
+}
+
+.send-button {
+  position: fixed;
+  width: 50%;
+  height: auto;
+  border-radius: 23px;
+  background: var(--maincol, #eef0ea);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  left: 50%;
+  bottom: 2%;
+  transform: translateX(-50%);
+  color: #000;
+  font-family: Rubik;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.48px;
+  border: 1px gray solid;
+}
+.stuсdent-item {
+  width: 30%;
+  height: auto;
+  border-radius: 23px;
+  background: var(--maincol, #eef0ea);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto; /* Добавьте этот стиль для горизонтального центрирования */
+  position: relative; /* Используйте relative для относительного позиционирования */
+  /* Остальные стили... */
+}
+
+
+.student-lastmess {
+  color: rgb(110, 112, 115);
+font-family: Rubik;
+font-size: 14px;
+font-weight: 300;
+line-height: 14px;
+letter-spacing: 0px;
+text-align: left;
+margin-left: 25px;
+margin-top: 10px;
+}

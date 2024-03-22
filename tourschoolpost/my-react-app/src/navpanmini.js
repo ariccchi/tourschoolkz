@@ -49,7 +49,7 @@ function Navpan() {
         }
     
     }, [location]);
-    console.log(activeIcon);
+
     return (
         <>
             <button onClick={toggleNav} className="hamburgermini">
@@ -66,7 +66,7 @@ function Navpan() {
                         <img src={activeIcon === "vector" ? "/bookyellow.svg" : "/book.svg"} alt="logo" className="mainiconmini" onClick={() => setActiveIcon("vector")}></img>
                     </Link>
                     <Link to="/messages">
-                        <img src={activeIcon === "message" ? "/messagegreen.svg" : "/messages.svg"} alt="logo" className="mainiconmini" onClick={() => setActiveIcon("message")}></img>
+                        <img src={activeIcon === "message" ? "/messageyellow.svg" : "/messages.svg"} alt="logo" className="mainiconmini" onClick={() => setActiveIcon("message")}></img>
                     </Link>
                     <img src={activeIcon === "plane" ? "/planeyellow.svg" : "/plane.svg"} alt="logo" className="mainiconmini" onClick={() => setActiveIcon("plane")}></img>
                     <Logoutmini />

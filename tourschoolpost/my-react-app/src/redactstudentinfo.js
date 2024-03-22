@@ -56,7 +56,7 @@ function BlockUser({ value1, value2, value3, value4 }) {
         window.location.reload();
     };
     const isCurator = value4[0]?.role === 'curator';
-    const isCurrentUserCurator = value3[0]?.curator === value2;
+    const isCurrentUserCurator = value2[0]?.curator === value3;
     const isAdmin = value4[0]?.role === 'admin';
     const isUserBlocked = value3[0]?.user_exists_in_blocks === 1;
     return (
