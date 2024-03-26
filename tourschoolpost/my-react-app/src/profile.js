@@ -205,26 +205,28 @@ function Profile() {
                     <div className="coursesprofile">
                         <div className="h3avatar">Мои курсы</div>
                         <div className="coursesprofilelist">
-                        {data3.map((course, index) => (
-  <Link key={course.id || index} to={`/courses/${course.course_name.replace(/\s+/g, '-')}`}>
-    <div className='lessonblockprofile'>
-      <div className='lessonRightblock'>
-        <div className='LessonTitle'>{course.course_name}</div>
-        <div className='statusinfo'>
-          <div className='lessonstatus'>Прогресс:</div>
-          <div className='lessonstatus2'>
-            {course.lesson_count > 0 ?
-              `${course.completed_lesson_count}/${course.lesson_count} (${Math.round((course.completed_lesson_count / course.lesson_count) * 100)}%)` :
-              `0/0 (0%)`
-            }
-          </div>
-        </div>
-      </div>
-    
-    </div>
-    
-  </Link>
-))}
+                        {data3 && data3.length > 0 ? (
+                data3.map((course, index) => (
+                    <Link key={course.id || index} to={`/courses/${course.course_name.replace(/\s+/g, '-')}`}>
+                        <div className='lessonblockprofile'>
+                            <div className='lessonRightblock'>
+                                <div className='LessonTitle'>{course.course_name}</div>
+                                <div className='statusinfo'>
+                                    <div className='lessonstatus'>Прогресс:</div>
+                                    <div className='lessonstatus2'>
+                                        {course.lesson_count > 0 ?
+                                            `${course.completed_lesson_count}/${course.lesson_count} (${Math.round((course.completed_lesson_count / course.lesson_count) * 100)}%)` :
+                                            `0/0 (0%)`
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                ))
+            ) : (
+                <div className="no-courses-message">Пользователь не начал ни одного курса</div>
+            )}
                         </div>
                     </div>
                     {(isAdmin || isCurator) && (

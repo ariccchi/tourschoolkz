@@ -136,7 +136,7 @@ function Studprof() {
     const handleToggleRightChats = () => {
         setShowRightChats(!showRightChats);
     };
-    console.log(data3);
+
      
     const handleImageUpload = (event) => {
         const file = event.target.files[0];

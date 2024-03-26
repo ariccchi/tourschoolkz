@@ -35,6 +35,7 @@ function BlockUser({ value1, value2, value3, value4 }) {
         setIsModalOpen(false);
         window.location.reload();
     };
+
     const handleUnblockUser = async () => {
         try {
             const response = await fetch('http://localhost:8888/tourschoolphp/Unblockuser.php', {
@@ -67,10 +68,16 @@ function BlockUser({ value1, value2, value3, value4 }) {
                 <button className="redactirovat" onClick={handleBlockClick}>Заблокировать</button>
             </>
         )}
+         {isUserBlocked && (
+                <>
+                <h1 className="blocked-message2">Пользователь заблокирован</h1> 
+                <h1 className="blocked-message2">Причина: {value3[0].block_reason}</h1> 
+                </>
+            )}
            {(isUserBlocked && isAdmin) && (
             <>
                
-                <button className="redactirovat" onClick={handleBlockClick}>Разблокировать</button>
+                <button className="redactirovat2" onClick={handleBlockClick}>Разблокировать</button>
             </>
         )}
           {isModalOpen && (

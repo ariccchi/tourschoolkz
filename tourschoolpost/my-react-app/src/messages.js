@@ -20,28 +20,20 @@ const ListStudents = () => {
 // Добавьте следующее в начале компонента
 const [imageLoading, setImageLoading] = useState(true);
 const [selectedStudents, setSelectedStudents] = useState([]);
+  let prevDate = null;
 const [forwardpic, setForwardpic] = useState([]);
 const [selectAll, setSelectAll] = useState(false);
   const handleToggleRightChats = () => {
     setShowRightChats(!showRightChats);
   };
 
-
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const decodedToken = jwtDecode(token);
-
-
-    const id = decodedToken.sub;
-    setSenderId(id);
-    const role = decodedToken.role;
-
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
         const id = decodedToken.sub;
-       
+  
         setSenderId(id);
         const role = decodedToken.role;
         let response;
@@ -59,11 +51,10 @@ const [selectAll, setSelectAll] = useState(false);
             title: id
           });
         }
-
+  
         const data = response.data;
         if (Array.isArray(data)) {
           setStudents(data);
-   
         } else {
           console.error('Data is not an array:', data);
         }
@@ -71,9 +62,16 @@ const [selectAll, setSelectAll] = useState(false);
         console.error('Error fetching students:', error);
       }
     };
-
+  
     fetchData();
+  
+    const interval = setInterval(() => {
+      fetchData();
+    }, 1000); // обновление каждую секунду
+  
+    return () => clearInterval(interval); // Очистка интервала при размонтировании компонента
   }, []);
+  
 
 
   const updateChatMessages = async () => {
@@ -83,6 +81,8 @@ const [selectAll, setSelectAll] = useState(false);
     }
   };
 
+
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       const updateUnreadMessages = async () => {
@@ -90,6 +90,7 @@ const [selectAll, setSelectAll] = useState(false);
           for (const student of students) {
             const receiverId = student.id;
             await getMessages(receiverId, senderId);
+            
           }
         } catch (error) {
           console.error('Error updating unread messages:', error);
@@ -297,7 +298,7 @@ const [selectAll, setSelectAll] = useState(false);
   
   const handleSendMessage = async () => {
     const read = 0;
-  console.log(attachedFile);
+
     // Check if both message and attached file are present
     if (!selectedStudent || !selectedStudent.id || (!message && !attachedFile)) {
       console.error('Error: Missing student ID, message, or attached file');
@@ -363,7 +364,25 @@ const [selectAll, setSelectAll] = useState(false);
   
     return `${formattedHours}:${formattedMinutes}`;
   };
+
+  const formatMessageDateMonth = (createdAt) => {
+    const months = [
+        "Января", "Февраля", "Марта", "Апреля", "Мая", "Июня",
+        "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"
+    ];
+
+    const date = new Date(createdAt);
+    const day = date.getDate();
+    const month = date.getMonth();
   
+    const formattedDay = day < 10 ? '0' + day : day;
+    const formattedMonth = months[month];
+  
+    return `${formattedDay} ${formattedMonth}`;
+};
+   
+
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && e.shiftKey) {
       e.preventDefault();
@@ -427,6 +446,7 @@ const [selectAll, setSelectAll] = useState(false);
       </React.Fragment>
     ));
   };
+
   const handleSendButtonClick = async () => {
     console.log('Sending messages to selected students:', selectedStudents, showUserModal, forwardpic);
     const read = 0;
@@ -464,7 +484,20 @@ const [selectAll, setSelectAll] = useState(false);
     setShowUserModal(false);
   };
   
-  
+  const sortedStudents = students.slice().sort((a, b) => {
+    // Если у студента `a` нет последнего сообщения или его message_id равен null, то он остается на своем месте
+    if (!a.last_message || !a.last_message.message_id) {
+
+        if (!b.last_message || !b.last_message.message_id) return 0;
+        // Возвращаем 1, чтобы `a` остался на своем месте
+        return 1;
+    }
+    // Если у студента `b` нет последнего сообщения или его message_id равен null, то он считается меньшим и идет выше в списке
+    if (!b.last_message || !b.last_message.message_id) return -1;
+    // Возвращаем разницу между message_id, как в предыдущем коде
+    return b.last_message.message_id - a.last_message.message_id;
+});
+
   return (
     <div className='couratorjs'>
       <Navpanmini/>
@@ -475,31 +508,28 @@ const [selectAll, setSelectAll] = useState(false);
         <div className={`rightchats-container ${selectedStudent ? 'selected' : ''}`}>
           <div className='chath'>Чаты</div>
           <div className='chatinfousers'>
-            {students.map((student) => (
-              <div
-                key={student.id}
-                className={`student-item ${selectedStudent === student ? 'selected' : ''}`}
-                onClick={() => handleStudentClick(student)}
-              >
-                <div className='avatarka'>
-                {student.avatar && <img className = 'avamessages' src={`http://localhost:8888/tourschoolphp/${student.avatar}`} alt={`${student.name} ${student.surname}'s Avatar`} />}
-                </div>
-                <div className='studlastmess'>
-                <div className="student-name">
-                  {student.name}
-                  {'   '}
-                  {student.surname}
-                  {unreadMessages[student.id] && <div className="notification-dot"></div>}
-                </div>
-                <div className="student-lastmess">
-  {student.last_message && student.last_message.length > 20 ? `${student.last_message.slice(0, 20)}...` : student.last_message}
-</div>
-
-                </div>
-          
-                
-              </div>
-            ))}
+          {sortedStudents.map((student) => (
+    <div
+        key={student.id}
+        className={`student-item ${selectedStudent === student ? 'selected' : ''}`}
+        onClick={() => handleStudentClick(student)}
+    >
+        <div className='avatarka'>
+            {student.avatar && <img className='avamessages' src={`http://localhost:8888/tourschoolphp/${student.avatar}`} alt={`${student.name} ${student.surname}'s Avatar`} />}
+        </div>
+        <div className='studlastmess'>
+            <div className="student-name">
+                {student.name}
+                {'   '}
+                {student.surname}
+                {unreadMessages[student.id] && <div className="notification-dot"></div>}
+            </div>
+            <div className="student-lastmess">
+                {student.last_message.message_text && student.last_message.message_text.length > 20 ? `${student.last_message.message_text.slice(0, 20)}...` : student.last_message.message_text}
+            </div>
+        </div>
+    </div>
+))}
           </div>
         </div>
       </div>
@@ -510,54 +540,69 @@ const [selectAll, setSelectAll] = useState(false);
               <div className='roundavatarka'>
               {selectedStudent.avatar && <img className='avamessages' src={`http://localhost:8888/tourschoolphp/${selectedStudent.avatar}`} alt={`${selectedStudent.name} ${selectedStudent.surname}'s Avatar`} />}
       </div>
-              <h2>{selectedStudent.name} {selectedStudent.name}</h2>
+              <h2>{selectedStudent.name} {selectedStudent.surname}</h2>
             </div>
             
             <div className="chat-messages" ref={chatMessagesRef}>
-            {messages[selectedStudent.id]?.map((message, index) => (
-  <div key={index} className={message.sender_user_id === senderId ? 'outgoing_msg' : 'incoming_msg'}>
-    <div className="msg">
-      {(message.message_text || message.file_name) && (
-        <div className={message.sender_user_id === senderId ? 'outgoing-text' : 'incoming-text'}>
-          {formatMessageText(message.message_text)}
-          {message.file_name && (
-            <div className={`file-container ${message.sender_user_id === senderId ? 'outgoing-file' : 'incoming-file'}`}>
-              {message.file_name.includes('.jpg') || message.file_name.includes('.jpeg') || message.file_name.includes('.png') ? (
-                <>
-                  {/* Render image with alt text and optional placeholder */}
-                  <img
-                    className='picturemess'
-                    src={`http://localhost:8888/tourschoolphp/${message.file_name}`}
-                    alt="Attached Image"
-                    onError={(e) => e.target.src = 'path/to/placeholder.jpg'} // Optional placeholder
-                  />
-                  <img className='forw' src="./forward.svg" alt="Forward Icon" onClick={() => handleForwClick(message.file_name)} />
-                </>
-              ) : (
-                /* Handle non-image files */
-                <a
-                  className='ahrew'
-                  href={`http://localhost:8888/tourschoolphp/${message.file_name}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span style={{ lineHeight: '60px' }}>{message.file_name.slice(4)}</span>
-                </a>
-              )}
-            </div>
-          )}
-          <span className="message-date">
-            {formatMessageDate(message.created_at)}
-          </span>
-        </div>
-      )}
-    </div>
+      {messages[selectedStudent.id]?.map((message, index) => {
+        const currentDate = formatMessageDateMonth(message.created_at);
+        const showDate = prevDate !== currentDate; // Проверяем, отличается ли текущая дата от предыдущей
+
+        // Если текущая дата отличается от предыдущей, сохраняем текущую дату
+        if (showDate) {
+          prevDate = currentDate;
+        }
+
+        return (
+          <div key={index} className={message.sender_user_id === senderId ? 'outgoing_msg' : 'incoming_msg'}>
+            {showDate && (
+              <div className="message-date">
+                {currentDate}
+              </div>
+            )}
+           <div className="msg">
+
+{(message.message_text || message.file_name) && (
+  <div className={message.sender_user_id === senderId ? 'outgoing-text' : 'incoming-text'}>
+    {formatMessageText(message.message_text)}
+    {message.file_name && (
+      <div className={`file-container ${message.sender_user_id === senderId ? 'outgoing-file' : 'incoming-file'}`}>
+        {message.file_name.includes('.jpg') || message.file_name.includes('.jpeg') || message.file_name.includes('.png') ? (
+          <>
+            {/* Render image with alt text and optional placeholder */}
+            <img
+              className='picturemess'
+              src={`http://localhost:8888/tourschoolphp/${message.file_name}`}
+              alt="Attached Image"
+              onError={(e) => e.target.src = 'path/to/placeholder.jpg'} // Optional placeholder
+            />
+            <img className='forw' src="./forward.svg" alt="Forward Icon" onClick={() => handleForwClick(message.file_name)} />
+          </>
+        ) : (
+          /* Handle non-image files */
+          <a
+            className='ahrew'
+            href={`http://localhost:8888/tourschoolphp/${message.file_name}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span style={{ lineHeight: '60px' }}>{message.file_name.slice(4)}</span>
+          </a>
+        )}
+      </div>
+    )}
+ 
+ 
+    <span className="message-date">
+      {formatMessageDate(message.created_at)}
+    </span>
   </div>
-))}
-
-
-
-            </div>
+)}
+</div>
+          </div>
+        );
+      })}
+    </div>
      
             <div className='alltextandyellow'>
               <div className='yellowbuttonchat2'>
