@@ -64,7 +64,7 @@ const [selectAll, setSelectAll] = useState(false);
     };
   
     fetchData();
-  
+
     const interval = setInterval(() => {
       fetchData();
     }, 1000); // обновление каждую секунду
@@ -74,34 +74,9 @@ const [selectAll, setSelectAll] = useState(false);
   
 
 
-  const updateChatMessages = async () => {
-    if (selectedStudent) {
-      const receiverId = selectedStudent.id;
-      await getMessages(receiverId, senderId);
-    }
-  };
 
 
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const updateUnreadMessages = async () => {
-        try {
-          for (const student of students) {
-            const receiverId = student.id;
-            await getMessages(receiverId, senderId);
-            
-          }
-        } catch (error) {
-          console.error('Error updating unread messages:', error);
-        }
-      };
-
-      updateUnreadMessages();
-    }, 2000);
-
-    return () => clearInterval(intervalId);
-  }, [students, senderId]);
+ 
 
   const chatMessagesRef = useRef();
   useEffect(() => {
@@ -155,19 +130,13 @@ const [selectAll, setSelectAll] = useState(false);
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
   }, [messages, shouldScrollToBottom]);
-  
-  const markAsReadAndHideNotification = (studentId) => {
-    setUnreadMessages((prev) => ({
-      ...prev,
-      [studentId]: false
-    }));
-  };
-  
+
+ 
   const handleStudentsClick = (student) => {
     if (student.id === 'selectAll') {
       handleSelectAll();
     } else {
-      // Check if the student is already selected
+    
       const isSelected = selectedStudents.some((selectedStudent) => selectedStudent.id === student.id);
   
       if (isSelected) {
@@ -232,6 +201,7 @@ const [selectAll, setSelectAll] = useState(false);
       }
   
       getMessages(student.id, senderId);
+      ReadMess(student.id, senderId)
     } catch (error) {
       console.error('Error handling student click:', error);
     }
@@ -261,18 +231,33 @@ const [selectAll, setSelectAll] = useState(false);
         [receiverId]: messagesArray
       }));
   
-      const hasUnreadMessages = messagesArray.some((message) => message.is_read === 0 && message.sender_user_id !== senderId);
-      setUnreadMessages((prev) => ({
-        ...prev,
-        [receiverId]: hasUnreadMessages
-      }));
-  
-      // Сохраняем текущую позицию скролла перед обновлением сообщений
    
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
   };
+
+
+  const ReadMess = async (receiverId, senderId) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8888/tourschoolphp/readmessages.php',
+        JSON.stringify({
+          receiver_user_id: receiverId,
+          sender_user_id: senderId
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );  
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    }
+  };
+
+
   const handleFileChange = (files) => {
     const file = files[0];
     
@@ -295,7 +280,7 @@ const [selectAll, setSelectAll] = useState(false);
     setForwardpic(fileName)
   };
   
-  
+  // console.log(messages);
   const handleSendMessage = async () => {
     const read = 0;
 
@@ -335,7 +320,7 @@ const [selectAll, setSelectAll] = useState(false);
       console.error('Error sending message:', error);
     }
   };
-  
+
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     // Если "Выбрать всех" включено, выберите всех студентов, в противном случае сбросьте выбор
@@ -483,7 +468,7 @@ const [selectAll, setSelectAll] = useState(false);
     }
     setShowUserModal(false);
   };
-  
+
   const sortedStudents = students.slice().sort((a, b) => {
     // Если у студента `a` нет последнего сообщения или его message_id равен null, то он остается на своем месте
     if (!a.last_message || !a.last_message.message_id) {
@@ -522,7 +507,9 @@ const [selectAll, setSelectAll] = useState(false);
                 {student.name}
                 {'   '}
                 {student.surname}
-                {unreadMessages[student.id] && <div className="notification-dot"></div>}
+                {student.unread_messages > 0 && (
+            <div className="notification-dot">{student.unread_messages}</div>
+        )}
             </div>
             <div className="student-lastmess">
                 {student.last_message.message_text && student.last_message.message_text.length > 20 ? `${student.last_message.message_text.slice(0, 20)}...` : student.last_message.message_text}
@@ -535,7 +522,8 @@ const [selectAll, setSelectAll] = useState(false);
       </div>
       <div className={`leftchat ${fullscreenChat ? 'fullscreen' : ''}`}>
         {selectedStudent && (
-          <div className="modal2">
+        <div className="modal2" onClick={() => selectedStudent.id && ReadMess(selectedStudent.id, senderId)}>
+
             <div className='topnamestud'>
               <div className='roundavatarka'>
               {selectedStudent.avatar && <img className='avamessages' src={`http://localhost:8888/tourschoolphp/${selectedStudent.avatar}`} alt={`${selectedStudent.name} ${selectedStudent.surname}'s Avatar`} />}

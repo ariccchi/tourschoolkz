@@ -37,12 +37,17 @@ align-items: center;
   }
   
   .notification-dot {
-    width: 10px;
-    height: 10px;
-    background-color: red;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(89, 144, 217);
     border-radius: 50%;
     display: inline-block;
-    margin-left: 5px;
+    color: white;
+    font-family: Rubik;
+font-size: 12px;
+font-weight: 200;
+text-align: center;
+
   }
   
   .student-item {
@@ -63,16 +68,10 @@ align-items: center;
     background-color: #f0f0f0;
   }
   
-  .student-name {
-    color: rgb(0, 0, 0);
-font-family: Rubik;
-font-size: 18px;
-font-weight: 500;
-line-height: 25px;
-letter-spacing: 0px;
-text-align: left;
+  .studlastmess {
+    width: 100%;
   }
-    
+
   .student-name2 {
     color: rgb(0, 0, 0);
 font-family: Rubik;
@@ -82,15 +81,7 @@ line-height: 25px;
 letter-spacing: 0px;
 text-align: left;
   }
-  
-  .notification-dot {
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 50%;
-    display: inline-block;
-    margin-left: 5px;
-  }
+
   
   .chath {
     color: #000;
@@ -136,6 +127,9 @@ text-align: left;
     line-height: normal;
     letter-spacing: 0.18px;
     margin-left: 25px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
   }
   
 
@@ -605,6 +599,7 @@ letter-spacing: 0px;
 text-align: left;
 margin-left: 25px;
 margin-top: 10px;
+
 }
 .message-date {
   text-align: center;

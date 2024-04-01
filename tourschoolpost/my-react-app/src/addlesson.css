@@ -1,0 +1,267 @@
+.addlessoncoursename {
+    color: #000000;
+
+    /* р3 зщвяфп */
+    font-family: Rubik;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.18px;
+}
+.addlessonlink {
+    border-radius: 22px;
+    background: var(--maincol, #F7F9EF);
+    /* button */
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 30px 0;
+    /* width: 365px; */
+    min-width: 200px;
+    color: #3c3c3c;
+  
+    /* h2 podzag */
+    font-family: Rubik;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.24px;
+    margin: 35px 152px;
+    display: flex;
+  justify-content: center; /* Выравнивание содержимого по горизонтали */
+  align-items: center; /* Выравнивание содержимого по вертикали */
+  text-align: center;
+}
+@media (max-width: 768px) { /* Примерная ширина для планшетов */
+   
+    .addlessonlink {
+        border-radius: 22px;
+        background: var(--maincol, #F7F9EF);
+        /* button */
+        box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        padding: 30px 0;
+        /* width: 365px; */
+        min-width: 200px;
+        color: #3c3c3c;
+        
+        /* h2 podzag */
+        font-family: Rubik;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 0.24px;
+        margin: 35px ; 
+    }
+}
+
+.inputaddless {
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    color: #000; /* Цвет текста */
+    background-color: #fff; /* Цвет фона */
+  }
+  
+  .inputaddless::placeholder {
+    color: #aaa;
+  }
+  
+  .inputaddless:focus {
+    border-color: #007bff; /* Цвет рамки при фокусе (можете изменить на свой вкус) */
+    resize: none; /* Запрещает изменение размера элемента */
+    width:  100%;
+  }
+  
+  .addcontainers {
+    width: 100%;
+    display: flex;
+    margin-left: 50px;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    margin-right: 100px;
+  }
+  
+  .knopkacont {
+    border-radius: 22px;
+    background: var(--maincol, #F7F9EF);
+    /* button */
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 30px 0;
+    width: 365px;
+    min-width: 200px;
+    color: #3c3c3c;
+    
+    /* h2 подзаголовок */
+    font-family: Rubik;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.24px;
+    margin: 35px; 
+    display: flex;
+    justify-content: center; /* Выравнивание содержимого по горизонтали */
+    align-items: center; /* Выравнивание содержимого по вертикали */
+  }
+  
+  /* Медиа-запрос для изменения стилей при адаптивной ширине */
+  @media (max-width: 768px) {
+    .addcontainers {
+      flex-direction: column; /* Элементы сворачиваются вниз */
+      margin-left: 0;
+    }
+  }
+
+  .container7 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .inputaddless2 {
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 16px;
+    width: 50%;
+    box-sizing: border-box;
+    outline: none;
+    color: #000; /* Цвет текста */
+    background-color: #fff; /* Цвет фона */
+  }
+  
+  .inputaddless2::placeholder {
+    color: #aaa;
+  }
+  
+  .inputaddless2:focus {
+    border-color: #007bff; /* Цвет рамки при фокусе (можете изменить на свой вкус) */
+    resize: none; /* Запрещает изменение размера элемента */
+    width:  50%;
+  }
+  
+  /* Стили для основного контейнера модального окна информации */
+.modal-info-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный серый фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Выше чем остальные элементы */
+}
+
+/* Стили для модального окна информации */
+.modal-info {
+  background: #fff; /* Фон модального окна */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень для модального окна */
+  z-index: 1000; /* Выше чем фон */
+}
+
+/* Добавьте стили для кнопки закрытия модального окна */
+.close-button {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Примените стили к кнопке в основном компоненте для открытия модального окна */
+.add-info-button {
+  cursor: pointer;
+  background: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.add-info-button:hover {
+  background: #45a049;
+}
+
+.infoblock {
+  display: flex;
+  flex-direction: column;
+}
+
+.allcontainersadd {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+.addtest {
+  margin-top: 10px;
+}
+
+.addpictureless {
+  width: 200px;
+  height: auto;
+}
+
+.fintestcont {
+  display: flex;
+  align-items: center;
+  height: 100vh; /* 100% высоты экрана */
+  display: flex;
+  flex-direction: column;
+}
+
+.finknopkacont {
+  border-radius: 22px;
+  background: var(--maincol, #F7F9EF);
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 30px 0;
+  width: 365px;
+  min-width: 200px;
+  color: #3c3c3c;
+  font-family: Rubik;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.24px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center; /* Выравнивание содержимого по горизонтали */
+  align-items: center; /* Выравнивание содержимого по вертикали */
+}
+.imgadd {
+  max-width: 300px;
+  height: auto;
+}
+
+.filediv {
+  background-color: white;
+  color: gray;
+  min-width: 200px;
+}
+.fintesttoadd {
+    text-align: center;
+}
+
+.centeraddless {
+    display: flex;
+    justify-content: column;
+    flex-direction: column;
+}
+
+.videoandtime {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

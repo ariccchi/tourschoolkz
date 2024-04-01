@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-rout
 import {useParams} from 'react-router-dom';
 import './profile.css';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 import StudentList from "./studentlist";
 import BlockUser from "./redactstudentinfo";
 function Studprof() {
@@ -23,12 +23,15 @@ function Studprof() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedNav, setSelectedNav] = useState('all');
     const [Curatordata, setCuratorData] = useState([]);
+ 
+    const navigate = useNavigate();
     const [Admindata, setAdminData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showRightChats, setShowRightChats] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedImageToDB, setSelectedImageToDB] = useState(null);
     useEffect(() => {
+      
         const fetchData = async () => {
             try {
                 // Выполняем HTTP запрос к PHP файлу
@@ -66,6 +69,10 @@ function Studprof() {
 
                 const data2 = await response.json();
                 setData2(data2);
+                if(role !== 'admin' && role !== 'curator') {
+                  navigate('/profile')
+                }
+                
 
                 const responseme = await fetch('http://localhost:8888/tourschoolphp/myuserinfo.php', {
                     method: 'POST',
@@ -105,6 +112,7 @@ function Studprof() {
 
         fetchData();
     }, [person]);
+
     const handleOpenModal = () => {
         setIsModalOpen(true);
       };
@@ -114,6 +122,7 @@ function Studprof() {
       };
     console.log(data2);
     const avatarSrc = data.avatar ? `http://localhost:8888/tourschoolphp/${data.avatar}` : null;
+    
     const roleNames = {
         student: 'Студент',
         curator: 'Куратор',

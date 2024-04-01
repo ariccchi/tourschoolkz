@@ -12,22 +12,28 @@ import Finaltest from './finaltest';
 import Lessonpdf from './lessonpdf';
 import Studprof from './studentsprof';
 import Messages from './messages';
+import PrivateRoute from './PrivateRoute';
+import AdminRoute from './Adminroute';
+import AddLesson from './addLesson';
+import Acceslogin from './acceslogin';
+import Checkstud from './checkstudent'
 function App() {
     return (
         <div className="App">
             <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/registration" element={<Registration />} />
-                    <Route path = "/profile" element={<Profile/>}/>
-                    <Route path = "/profile/:person" element={<Studprof/>}/>
-                    <Route path = "/messages" element={<Messages/>}/>
-                    <Route path = "/courses" element={<Courses/>}/>
-                    <Route path="/courses/:title" element={<LessonListPage/>}></Route>
-                    <Route path="/courses/:title/:lesson" element={<LessonMain/>}></Route>
-                    <Route path="/courses/:title/lesson/:lesson" element={<Lessonpdf/>}></Route>
-                    <Route path="/courses/:title/:lesson/summary-page" element={<SummaryPage />} />
-                    <Route path="/courses/:title/:lesson/finaltest" element={<Finaltest />} />
-                    <Route path="/courses/:title/:lesson/finaltest" element={<Finaltest />} />
+                    <Route path = "/profile" element={<Acceslogin><PrivateRoute><Profile/></PrivateRoute></Acceslogin>}/>
+                    <Route path = "/profile/:person" element={<Checkstud><Acceslogin><PrivateRoute><Studprof/></PrivateRoute></Acceslogin></Checkstud>}/>
+                    <Route path = "/messages" element={<Acceslogin><Messages/></Acceslogin>}/>
+                    <Route path = "/Addlesson/:course" element={<Acceslogin><PrivateRoute><AdminRoute><AddLesson/></AdminRoute></PrivateRoute></Acceslogin>}/>
+                    <Route path = "/courses" element={<Acceslogin><PrivateRoute><Courses/></PrivateRoute></Acceslogin>}/>
+                    <Route path="/courses/:title" element={<Acceslogin><PrivateRoute><LessonListPage/></PrivateRoute></Acceslogin>}></Route>
+                    <Route path="/courses/:title/:lesson" element={<Acceslogin><PrivateRoute><LessonMain/></PrivateRoute></Acceslogin>}></Route>
+                    <Route path="/courses/:title/lesson/:lesson" element={<Acceslogin><PrivateRoute><Lessonpdf/></PrivateRoute></Acceslogin>}></Route>
+                    <Route path="/courses/:title/:lesson/summary-page" element={<Acceslogin><PrivateRoute><SummaryPage /></PrivateRoute></Acceslogin>} />
+                    <Route path="/courses/:title/:lesson/finaltest" element={<Acceslogin><PrivateRoute><Finaltest /></PrivateRoute></Acceslogin>} />
+                    <Route path="/courses/:title/:lesson/finaltest" element={<Acceslogin><PrivateRoute><Finaltest /></PrivateRoute></Acceslogin>} />
             </Routes>
         </div>
     );
