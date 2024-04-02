@@ -1,0 +1,656 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.containerlanding {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(248, 241, 241);
+}
+
+.headerlanding {
+    display: flex;
+    margin-left: 165px;
+    margin-right: 165px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    width: 85%;
+}
+
+.tourlogoland {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+.logohead{
+    width: 70px;
+height: 70px;
+background: rgb(196, 196, 196);
+}
+
+.tourinfoland {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 300;
+line-height: 21px;
+letter-spacing: 0px;
+text-align: center;
+}
+
+.tourclubhead {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 500;
+line-height: 21px;
+letter-spacing: 0px;
+text-align: center;
+margin-left: 25px;
+
+}
+
+.tourloginland {
+    color: rgb(89, 144, 217);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 300;
+line-height: 28px;
+letter-spacing: 0px;
+text-align: center;
+box-sizing: border-box;
+/* blu */
+border: 3px solid rgb(89, 144, 217);
+border-radius: 65px;
+width: 193px;
+height: 51px;
+justify-content: center;
+display: flex;
+align-items: center;
+text-align: center;
+}
+
+.containerlandup {
+    width: 85%;
+    display: flex;
+    height: 600px;
+  
+    
+}
+
+
+.containerlandupleft {
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+
+.containerlandupright {
+    width: 50%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.womansrc {
+    width: auto;
+    height: 100%;
+    z-index: 1;
+}
+
+.bigtextlandup {
+    color: rgb(0, 0, 0);
+    font-family: Montserrat;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 93px;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 90%;
+
+height: 50%;
+margin-top: 20px;
+}
+
+.smalltextlandup {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 24px;
+font-weight: 300;
+line-height: 28px;
+letter-spacing: -1px;
+text-align: center;
+width: 100%;
+height: 56px;
+margin-top: 28px;
+}
+
+.buttonlandzap {
+    border-radius: 118px;
+/* yellow */
+background: rgb(242, 154, 46);
+width: 361px;
+height: 65px;
+color: rgb(255, 255, 255);
+font-family: Rubik;
+font-size: 24px;
+font-weight: 500;
+line-height: 28px;
+letter-spacing: 0px;
+text-align: center;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 45px;
+}
+
+
+.womanclassname {
+    height: 100%;
+    width: 300px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    align-self: flex-end;
+}
+
+.orangeroundland {
+    background: rgb(242, 154, 46);
+    width: 396px;
+height: 396px;
+border-radius: 1090px;
+position: absolute;
+top: 2px;
+left: -20px;
+z-index: 0;
+}
+.blueroundland1 {
+border: 4px rgb(89, 144, 217) solid;
+filter: blur(2px);
+width: 515px;
+height: 453px;
+border-radius: 50%;
+z-index: 0;
+position: absolute;
+transform: rotate(28.44deg);
+left: 20px;
+top: 20px;
+}
+.blueroundland2 {
+    border: 4px rgb(89, 144, 217) solid;
+    filter: blur(2px);
+    width: 303px;
+    height: 357px;
+    border-radius: 50%;
+    z-index: 0;
+    position: absolute;
+    left: -20px;
+    top: 248px;
+    }
+@media (max-width: 768px) {
+    .bigtextlandup {
+        font-size: 38px;
+        line-height: 60px;
+    }
+    .smalltextlandup {
+        font-size: 20px;
+    }
+
+    .buttonlandzap {
+        width: 231px;
+        height: 65px;
+        margin-top: 60px;
+    }
+ .womanclassname {
+    height: 85%;
+ }
+}
+@media (max-width: 966px) {
+    .bigtextlandup {
+        font-size: 48px;
+        line-height: 60px;
+    }
+
+    .buttonlandzap {
+        width: 231px;
+        height: 65px;
+        margin-top: 60px;
+    }
+ .womanclassname {
+    height: 85%;
+ }
+}
+@media (max-width: 480px) {
+    .bigtextlandup {
+        font-size: 30px;
+        line-height: 60px;
+    }
+    .smalltextlandup {
+        font-size: 15px;
+    }
+}
+
+
+
+.dreamplush {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 29px;
+font-weight: 200;
+line-height: 34px;
+letter-spacing: 0px;
+text-align: center;
+box-shadow: 0px 27px 50px -12px rgba(74, 149, 246, 0.39);
+background: rgb(255, 255, 255);
+width: 100%;
+height: 125px;
+z-index: 2;
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+@media (max-width: 480px) { 
+
+    .dreamplush {
+        font-size: 20px;
+    }
+    }
+
+@media (max-width: 768px) { 
+
+.dreamplush {
+    font-size: 20px;
+}
+}
+
+.courseinfopeople {
+    width: 95%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reasonsboxcourse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.h1courseinfopeople {
+    color: rgb(0, 0, 0);
+font-family: Montserrat;
+font-size: 58px;
+font-weight: 700;
+line-height: 93px;
+letter-spacing: 1px;
+text-align: center;
+margin-top: 58px;
+}
+
+
+.reasonsboxcourse {
+    width: 95%; 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.reasoncourses {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 20px;
+font-weight: 300;
+line-height: 28px;
+letter-spacing: 0px;
+text-align: center;
+border-radius: 44px;
+box-shadow: 0px 4px 14px 2px rgba(89, 144, 217, 0.70);
+background: rgb(255, 255, 255);
+width: 493px;
+height: 120px;
+display: flex;
+text-align: center;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+margin-top: 100px;
+margin-left: 50px;
+margin-right: 50px;
+
+}
+
+
+@media (max-width: 768px) { 
+
+    .reasoncourses {
+        font-size: 17px;
+    } 
+}
+
+
+.aboutuslanding {
+    margin-top: 200px;
+    width: 95%;
+}
+
+.aboutush1 {
+    color: rgb(0, 0, 0);
+    font-family: Montserrat;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 93px;
+    letter-spacing: 1px;
+    text-align: center;   
+}
+.aboutusboxes {
+    display: flex;
+    margin-top: 37px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.aboutusbox {
+    border-radius: 46px;
+box-shadow: 0px 8px 4px 0px rgba(89, 144, 217, 0.60);
+background: rgb(255, 255, 255);
+width: 288px;
+height: 388px;
+padding: 23px;
+margin-left: 50px;
+margin-right: 50px;
+margin-top: 50px;
+}
+
+.boxfromaboutus {
+    width: 55px;
+height: 55px;
+border-radius: 16px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+.yellowland {
+    background: rgb(242, 154, 46);
+}
+
+.greenland {
+    border-radius: 16px;
+/* bir */
+background: rgb(110, 188, 183);
+}
+
+.blueland {
+    border-radius: 16px;
+/* blu */
+background: rgb(89, 144, 217);
+}
+
+
+.zagaboutus {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 24px;
+font-weight: 500;
+line-height: 28px;
+letter-spacing: 0px;
+text-align: left;
+margin-top: 16px;
+}
+
+.infoaboutus {
+    color: rgb(110, 112, 115);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 300;
+line-height: 21px;
+letter-spacing: 0px;
+text-align: left;
+margin-top: 14px;
+}
+
+.aboutmelanding {
+    width: 85%;
+    display: flex;
+    height: 600px;
+    max-height: 900px;
+    min-height: 600px;
+    margin-top: 200px;
+    margin-bottom: 60px;
+}
+
+.containerlandcenterright {
+    width: 50%;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aboutmetext {
+    width: 50%;
+    height: 100%;
+}
+
+.womansrccenter {
+    height: 494px;
+    width: auto;
+    transform: scaleX(-1);
+    z-index: 1;
+    display: flex;
+    align-self: flex-end;
+}
+
+.womanclassnamecenter {
+    height: 100%;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    align-self: flex-end;
+}
+
+.blobcenter {
+    position: absolute;
+    left: -193px;
+    top: 113px;
+}
+
+.aboutmeh2 {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 29px;
+font-weight: 800;
+line-height: 34px;
+letter-spacing: 0px;
+text-align: center;
+}
+
+.aboutmetexth3 {
+    color: rgb(110, 112, 115);
+font-family: Rubik;
+font-size: 16px;
+font-weight: 300;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: center;
+margin-top: 25px;
+}
+
+@media (max-width: 768px) { 
+
+    .containerlandcenterright {
+        display: none;
+    } 
+    .aboutmetext {
+        width: 100%;
+    }
+}
+
+
+.programmcourse {
+    width: 100%;
+    margin-top: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.programmcourseh1 {
+    color: rgb(0, 0, 0);
+font-family: Montserrat;
+font-size: 58px;
+font-weight: 700;
+line-height: 93px;
+letter-spacing: 1px;
+text-align: center;
+}
+
+.programmput {
+    display: flex;
+    margin-top: 87px;
+}
+
+.yellowlineprog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.yellowlineon {
+    border: 2px solid rgb(242, 154, 46); 
+    height: 545px;
+    width: 0;
+}
+.arrowland {
+  margin-top: 20px;
+}
+.leftprogramm {
+    display: flex;
+    flex-direction: column;
+margin-top: 30px;
+margin-right: 40px;
+
+}
+
+.needbot {
+    margin-top: 50px;
+}
+
+
+.lefttextprogramm {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 200;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: right;
+margin-top: 100px;
+}
+
+.righttextprogramm {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 200;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: left;
+margin-top: 100px;
+
+}
+
+.rightprogramm {
+   margin-left: 40px;
+    margin-top: -45px;
+}
+
+.certificateget {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 500;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: center;
+border-radius: 82px;
+box-shadow: 0px 4px 4px 6px rgba(89, 144, 217, 0.34);
+background: rgb(255, 255, 255);
+padding: 30px;
+margin-top: 20px;
+}
+
+
+.feedbackland {
+    margin-top: 100px;
+    width: 100%;
+    display: flex;
+}
+
+.leftsideoffeedback {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightsideoffeedback {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px0;
+}
+
+.rightbigfeed {
+    color: rgb(0, 0, 0);
+font-family: Montserrat;
+font-size: 58px;
+font-weight: 600;
+line-height: 93px;
+letter-spacing: 1px;
+text-align: center;
+}
+
+.rightsmallfeed {
+    color: rgb(0, 0, 0);
+font-family: Rubik;
+font-size: 18px;
+font-weight: 300;
+line-height: 25px;
+letter-spacing: 0px;
+text-align: center;
+}
+
+.formtogetus {
+    border-radius: 97px;
+background: rgba(89, 144, 217, 0.2);
+height: 400px;
+width: 80%;
+}

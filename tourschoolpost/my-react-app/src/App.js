@@ -16,11 +16,13 @@ import PrivateRoute from './PrivateRoute';
 import AdminRoute from './Adminroute';
 import AddLesson from './addLesson';
 import Acceslogin from './acceslogin';
-import Checkstud from './checkstudent'
+import Checkstud from './checkstudent';
+import LandingPage from './landingpage';
 function App() {
     return (
         <div className="App">
             <Routes>
+                <Route path="/" element={<LandingPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/registration" element={<Registration />} />
                     <Route path = "/profile" element={<Acceslogin><PrivateRoute><Profile/></PrivateRoute></Acceslogin>}/>
