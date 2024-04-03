@@ -1,21 +1,155 @@
-import React from "react";
+import React, { useState } from "react";
 import './landingpage.css';
+import { useEffect, useRef } from 'react';
 function LandingPage() {
+    const element1Ref = useRef(null);
+    const element2Ref = useRef(null);
+    const element3Ref = useRef(null);
+    const [element1Visible, setElement1Visible] = useState(false);
+    const [element2Visible, setElement2Visible] = useState(false);
+    const [element3Visible, setElement3Visible] = useState(false);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');   
+  const [message, setMessage] = useState('');
 
 
+  const handleClickAbout = () => {
+    const aboutElement = document.querySelector('.aboutuslanding');
+    if (aboutElement) {
+      aboutElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const handleTop = () => {
+    const TopElement = document.querySelector('.containerlandup');
+    if (TopElement) {
+        TopElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
+  const handleClickCourse = () => {
+    const courseElement = document.querySelector('.programmcourse');
+    if (courseElement) {
+      courseElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const { top: element1Top, bottom: element1Bottom } = element1Ref.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      if (element1Top < windowHeight && element1Bottom >= 0) {
+        setElement1Visible(true);
+      } else {
+        setElement1Visible(false);
+      }
+    };
+
+    const interval = setInterval(handleScroll, 1000);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Проверяем видимость элемента при загрузке страницы
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(interval);
+    };
+  }, [element1Ref]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { top: element2Top, bottom: element2Bottom } = element2Ref.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      if (element2Top < windowHeight && element2Bottom >= 0) {
+        setElement2Visible(true);
+      } else {
+        setElement2Visible(false);
+      }
+    };
+
+    const interval = setInterval(handleScroll, 1000);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Проверяем видимость элемента при загрузке страницы
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(interval);
+    };
+  }, [element2Ref]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { top: element3Top, bottom: element3Bottom } = element3Ref.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      if (element3Top < windowHeight && element3Bottom >= 0) {
+        setElement3Visible(true);
+      } else {
+        setElement3Visible(false);
+      }
+    };
+
+    const interval = setInterval(handleScroll, 1000);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Проверяем видимость элемента при загрузке страницы
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(interval);
+    };
+  }, [element3Ref]);
+    
+    
+  const handleClickRegistration = () => {
+    const registrationElement = document.querySelector('.feedbackland');
+    if (registrationElement) {
+      registrationElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+    const handleSubmit = async (event) => {
+    event.preventDefault();
+   
+    if(name == '' || phone == '' || email == '') {
+        setMessage('Заполните все поля')
+    }else {
+    try {
+
+        const response = await fetch('http://localhost:8888/tourschoolphp/Application.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name:name, phone: phone, email: email }),
+        });
+
+        const data = await response.json();
+        if (data.status === 'success') {
+            setMessage('Вы оставили заявку');
+        } else if(data.status=== 'empty') {
+            setMessage('Заполните все поля');
+        }
+
+
+    } catch (error) {
+        console.error('An error occurred:', error);
+        setMessage('Не получилось оставить заявку, попробуйте позже');
+    }
+}
+    alert(message)
+};
 
     return (
         <div className="containerlanding">
             <div className="headerlanding">
-                <div className="tourlogoland">
+                <div className="tourlogoland" onClick={handleTop}>
                     <div className="logohead"></div>
                     <div className="tourclubhead">TourClub</div>
                 </div>
-                <div className="tourinfoland">О нас</div>
-                <div className="tourinfoland">Про курс</div>
-                <div className="tourinfoland">Записаться на курс</div>
-                <div className="tourloginland">Войти</div>
+                <div className="tourinfoland" onClick={handleClickAbout}>О нас</div>
+                <div className="tourinfoland" onClick={handleClickCourse}>Про курс</div>
+                <div className="tourinfoland" onClick={handleClickRegistration}>Записаться на курс</div>
+
+                <a href="/login" className="tourloginland">Войти</a>
             </div>
 
 
@@ -23,7 +157,7 @@ function LandingPage() {
                 <div className="containerlandupleft">
                     <div className="bigtextlandup">Стань восстребованным турагентом</div>
                     <div className="smalltextlandup">Стань востребованным турагентом и зарабатывай от 500 $ в месяц!</div>
-                    <div className="buttonlandzap">Записаться на курс</div>
+                    <div className="buttonlandzap" onClick={handleClickRegistration}>Записаться на курс</div>
                 </div>
 
 
@@ -31,8 +165,7 @@ function LandingPage() {
                     <div className="womanclassname">
                         <img className="womansrc" src="./womanpng.png"></img>
                         <div className="orangeroundland"></div>
-                        {/* <div className="blueroundland1"></div>
-                        <div className="blueroundland2"></div> */}
+                       
                         </div>
                       </div>
 
@@ -41,7 +174,7 @@ function LandingPage() {
             </div>
 
 
-            <div className="dreamplush">Мечтаешь о работе, которая сочетает в себе свободу, путешествия и высокий доход?</div>
+            <div ref={element2Ref} className={element2Visible ? 'dreamplush slideInLeft' : 'dreamplush'}>Мечтаешь о работе, которая сочетает в себе свободу, путешествия и высокий доход?</div>
 
 
             <div className="courseinfopeople">
@@ -103,7 +236,7 @@ function LandingPage() {
 </div>
                       </div>
             </div>
-            <div className="dreamplush">Открой мир безграничных возможностей c курсом "Стань восстребованным турагентом "!</div>
+            <div ref={element1Ref} className={element1Visible ? 'dreamplush slideInLeft' : 'dreamplush'}>Открой мир безграничных возможностей c курсом "Стань восстребованным турагентом "!</div>
 
 
 <div className="programmcourse">
@@ -131,16 +264,36 @@ function LandingPage() {
 <div className="certificateget">Получение сертификата о прохождении</div>
 
 </div>
-<div className="dreamplush needbot">Запишись на курс сейчас и получи в подарок уроки по уверенному голосу в продажах</div>
+<div ref={element3Ref} className={element3Visible ? 'dreamplush needbot slideInLeft' : 'dreamplush needbot '}>Запишись на курс сейчас и получи в подарок уроки по уверенному голосу в продажах</div>
 
 
 <div className="feedbackland">
     <div className="leftsideoffeedback">
-        <div className="formtogetus"></div>
+        <div className="formtogetus">
+        <div className="getconsland">Записаться на консультацию</div>
+        <div className="input-groupland">
+            
+            <label htmlFor="name" className="labelnamelanding"></label>
+            <input type="text" id="text" name="text" placeholder="Имя" className="inputnameland"     maxLength="25" value={name} onChange={(e) => setName(e.target.value)} />
+            <label htmlFor="name" className="labelnamelanding"></label>
+            <input type="text" id="text" name="text" placeholder="Номер телефона" className="inputnameland"     maxLength="25" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <label htmlFor="name" className="labelnamelanding"></label>
+            <input type="text" id="text" name="text" placeholder="Электронная почта" className="inputnameland"     maxLength="25" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <div className="submitbuttonland" onClick={handleSubmit}>
+    Записаться
+</div> 
+{message && <div className="messagegetland">{message}</div>}
+
+        </div>
+     
+
+        </div>
     </div>
     <div className="rightsideoffeedback">
+        <div className="rightdownside">
         <div className="rightbigfeed">Связаться с нами</div>
-        <div className="rightsmallfeed">Подайте заявку на звонок для покупки курса, консультации и прочих вопросов. Наши менеджерыы свяжутся с вами за короткое время</div>
+        <div className="rightsmallfeed">Подайте заявку на звонок для покупки курса, консультации и прочих вопросов. Наши менеджеры свяжутся с вами за короткое время</div>
+        </div>
     </div>
 
 </div>

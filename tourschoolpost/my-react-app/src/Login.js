@@ -15,9 +15,7 @@ const [message, setMessage] = useState('');
 const [token, setToken] = useState(''); 
 
 
-if(token2) {
 
-  }
   const handleSubmit = async (event) => {
     event.preventDefault();
  
