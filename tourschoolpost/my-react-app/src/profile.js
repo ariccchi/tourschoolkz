@@ -23,6 +23,9 @@ function Profile() {
     const [showRightChats, setShowRightChats] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedImageToDB, setSelectedImageToDB] = useState(null);
+    const [applications, setApplications] = useState([]);
+
+   
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -167,6 +170,20 @@ function Profile() {
       };
       console.log(Admindata);
 
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      try {
+        const response = await axios.get('http://localhost:8888/tourschoolphp/Applicationlistcont.php');
+        setApplications(response.data);
+      } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+      }
+    }, 1000); // Adjust interval as needed (1000 ms = 1 second)
+
+    return () => clearInterval(intervalId); // Clean up interval on unmount
+  }, [isAdmin]);
+console.log(applications);
+
     return (
         <div className="containerprofile">
             <div className="photoanddannie">
@@ -245,6 +262,22 @@ function Profile() {
                     </div>
                     </>
                     )}
+            </div>
+
+
+            <div className="workblock">
+              {isAdmin && (
+              
+        <a href="/applications" className="knopkaApplication">
+          <div className="applicationtextprof">Заявки</div>
+          <div className="stoproc">
+          <div className="lenghtappl">{applications}</div>  
+          </div>
+       
+        </a>
+        
+
+              )}
             </div>
             <Navpanmini />
             {isModalOpen && (
