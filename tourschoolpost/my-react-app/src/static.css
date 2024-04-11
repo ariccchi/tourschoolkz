@@ -1,0 +1,49 @@
+.containerstatic {
+    margin-left: 200px;
+    /* background-color: rgb(0, 0, 129); */
+}
+
+.studentregstat {
+    width: 600px;
+    height: 300px;
+}
+
+.staticregclass {
+
+min-width: 100%;
+min-height: 100%;
+max-width: 100%;
+max-height: 100%;
+
+}
+
+.monthLabel {
+    display: flex;
+    width: 600px;
+    justify-content: space-between;
+}
+
+.monthstatic {
+    background-color: transparent;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 768px){
+    .containerstatic {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .studentregstat {
+        width: 400px;
+        height: 200px;
+    }
+    .monthLabel {
+        display: flex;
+        width: 400px;
+        justify-content: space-between;
+        margin-top: 70px;
+    }
+}

@@ -266,7 +266,7 @@ console.log(applications);
 
 
             <div className="workblock">
-              {isAdmin && (
+              {isAdmin  && (
               
         <a href="/applications" className="knopkaApplication">
           <div className="applicationtextprof">Заявки</div>
@@ -275,9 +275,36 @@ console.log(applications);
           </div>
        
         </a>
+
+        
         
 
               )}
+                  {isCurator  && (
+              
+              <a href="/applications" className="knopkaApplication">
+                <div className="applicationtextprof">Заявки</div>
+                <div className="stoproc">
+                <div className="lenghtappl">{applications}</div>  
+                </div>
+             
+              </a>
+      
+              
+              
+      
+                    )}
+
+{isAdmin  && (
+              
+              <a href="/static" className="knopkaApplication">
+                <div className="applicationtextprof">Статистика</div>
+              </a>
+      
+              
+              
+      
+                    )}
             </div>
             <Navpanmini />
             {isModalOpen && (

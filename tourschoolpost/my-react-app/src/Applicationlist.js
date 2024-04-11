@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'; 
 import './applicationlist.css';
 import Navpanmini from "./navpanmini";
+import { jwtDecode } from 'jwt-decode';
+import MyApplist from "./MyApplicationlist";
 function ApplicationList() {
+  const [paginationApplication, setPaginationApplication] = useState(1)
   const [applications, setApplications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -10,19 +13,44 @@ function ApplicationList() {
   const [deletedApplications, setDeletedApplications] = useState([]); // Track deleted applications
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [appToDelete, setAppToDelete] = useState(null);
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [appToSuccess, setAppToSuccess] = useState(null);
+   
+
+
+    const [showUnSuccessModal, setShowUnSuccessModal] = useState(false);
+    const [appToUnSuccess, setAppToUnSuccess] = useState(null);
+   
+
+
+   const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const id = decodedToken.sub;
+
+
+
   // Fetch data on component mount
   useEffect(() => {
+  
+
+   
     const intervalId = setInterval(async () => {
+     
       try {
         const response = await axios.get('http://localhost:8888/tourschoolphp/Applicationlist.php');
         setApplications(response.data);
       } catch (error) {
         console.error('Ошибка при загрузке данных:', error);
       }
+  
+  
     }, 1000); // Adjust interval as needed (1000 ms = 1 second)
 
     return () => clearInterval(intervalId); // Clean up interval on unmount
   }, []);
+
+
 
   const handleDelete = async (appId) => {
     try {
@@ -46,6 +74,101 @@ function ApplicationList() {
       // Handle error
     }
   };
+
+
+
+
+  const handleSuccess = async (appId) => {
+    try {
+      const currentTime = new Date();
+      const formData = new FormData();
+      console.log(appId);
+      console.log(id);
+      const data = {
+        appID: appId,
+        id: id
+      };
+      console.log(formData);
+  
+      const response = await axios.post(
+        'http://localhost:8888/tourschoolphp/Applicationsuccsess.php',
+        JSON.stringify(data),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          
+        }
+      );
+  
+      if (response.data.success) {
+        // Mark application as deleted for animation
+        setDeletedApplications([...deletedApplications, appId]);
+  
+        // Remove application from state after a short delay to allow animation
+        setTimeout(() => {
+          setApplications(applications.filter(app => app.id !== appId));
+          setDeletedApplications(deletedApplications.filter(id => id !== appId));
+        }, 300); // Adjust delay as needed for animation duration
+      } else {
+        console.error('Error deleting application:', response.data.error);
+        // Handle error - вывод ошибки в консоль
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      // Handle error - вывод ошибки в консоль
+    }
+  };
+  
+
+
+  const handleUnsucess = async (appId) => {
+    try {
+      const currentTime = new Date();
+      const formData = new FormData();
+      console.log(appId);
+      console.log(id);
+      const data = {
+        appID: appId,
+        id: id
+      };
+      console.log(formData);
+  
+      const response = await axios.post(
+        'http://localhost:8888/tourschoolphp/Applicationunsucsessful.php',
+        JSON.stringify(data),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          
+        }
+      );
+  
+      if (response.data.success) {
+        // Mark application as deleted for animation
+        setDeletedApplications([...deletedApplications, appId]);
+  
+        // Remove application from state after a short delay to allow animation
+        setTimeout(() => {
+          setApplications(applications.filter(app => app.id !== appId));
+          setDeletedApplications(deletedApplications.filter(id => id !== appId));
+        }, 300); // Adjust delay as needed for animation duration
+      } else {
+        console.error('Error deleting application:', response.data.error);
+        // Handle error - вывод ошибки в консоль
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      // Handle error - вывод ошибки в консоль
+    }
+  };
+  
+
+
+
+
+
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -62,11 +185,57 @@ function ApplicationList() {
       .slice(indexOfFirstItem, indexOfLastItem)
   : []; // Return an empty array if not an array
 
+
+
     const handleDeleteClick = (app) => {
         setAppToDelete(app);
         setShowDeleteModal(true);
       };
+
+          const handleSuccessClick = (app) => {
+            setAppToSuccess(app);
+        setShowSuccessModal(true);
+      };
     
+   const handleUnSuccessClick = (app) => {
+            setAppToUnSuccess(app);
+        setShowUnSuccessModal(true);
+      };
+    
+
+
+
+      const handleConfirmSuccess = async () => {
+        if (appToSuccess) {
+          await handleSuccess(appToSuccess.id);
+          setShowSuccessModal(false);
+          setAppToSuccess(null);
+        }
+      };
+  
+
+
+      const handleConfirmUnSuccess = async () => {
+        if (appToUnSuccess) {
+          await handleUnsucess(appToUnSuccess.id);
+          setShowUnSuccessModal(false);
+          setAppToUnSuccess(null);
+        }
+      };
+
+
+      const handleCancelUnSuccess = () => {
+        setShowUnSuccessModal(false);
+        setAppToUnSuccess(null);
+      };
+
+    
+      const handleCancelSuccess = () => {
+        setShowSuccessModal(false);
+        setAppToSuccess(null);
+      };
+
+
       const handleConfirmDelete = async () => {
         if (appToDelete) {
           await handleDelete(appToDelete.id);
@@ -79,6 +248,10 @@ function ApplicationList() {
         setShowDeleteModal(false);
         setAppToDelete(null);
       };
+
+
+
+
     
   // Pagination component
   const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
@@ -106,9 +279,11 @@ function ApplicationList() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
+   
     <div className="Applicationcont"> 
     <Navpanmini/>
     <div className="application-list">
+      
       <h2>Список заявок</h2>
       <input 
         type="text" 
@@ -117,6 +292,8 @@ function ApplicationList() {
         value={searchTerm}
         onChange={handleSearchChange}
       />
+   
+   <div className="myapplicationlink">Выполненные заявки</div>
 
       {currentItems.map(app => (
         <div 
@@ -130,9 +307,17 @@ function ApplicationList() {
             <p><strong>Время заявки:</strong> {app.timestamp}</p>
             {/* Add more application details as needed */}
           </div>
+          <div className="buttonstoapplications">
           <button className="delete-button" onClick={() => handleDeleteClick(app)}>
-              × 
+          ⌫
             </button>
+             <button className="success-button" onClick={() => handleSuccessClick(app)}>
+             ✓
+            </button>
+            <button className="success-button" onClick={() => handleUnSuccessClick(app)}>
+            × 
+            </button>
+            </div>
         </div>
       ))}
 
@@ -153,6 +338,35 @@ function ApplicationList() {
             </div>
           </div>
         )}
+
+
+{showSuccessModal && (
+          <div className="modalpad">
+            <div className="modal-content">
+              <p>Пользователь  <strong>{appToSuccess.name}?</strong> согласился на курс?</p>
+              <div className="modal-actions">
+                <button onClick={handleConfirmSuccess}>Да</button>
+                <button onClick={handleCancelSuccess}>Закрыть</button>
+              </div>
+            </div>
+         
+          </div>
+        )}
+
+
+
+{showUnSuccessModal && (
+          <div className="modalpad">
+            <div className="modal-content">
+              <p>Пользователь  <strong>{appToUnSuccess.name}?</strong> отказался записываться на курс?</p>
+              <div className="modal-actions">
+                <button onClick={handleConfirmUnSuccess}>Да</button>
+                <button onClick={handleCancelUnSuccess}>Закрыть</button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

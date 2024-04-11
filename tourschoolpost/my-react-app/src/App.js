@@ -19,6 +19,7 @@ import Acceslogin from './acceslogin';
 import Checkstud from './checkstudent';
 import LandingPage from './landingpage';
 import ApplicationList from './Applicationlist';
+import Static from './static';
 function App() {
     return (
         <div className="App">
@@ -30,6 +31,11 @@ function App() {
                     <Route path = "/profile/:person" element={<Checkstud><Acceslogin><PrivateRoute><Studprof/></PrivateRoute></Acceslogin></Checkstud>}/>
                     <Route path = "/messages" element={<Acceslogin><PrivateRoute><Messages/></PrivateRoute></Acceslogin>}/>
                     <Route path = "/applications" element={<Acceslogin><PrivateRoute><AdminRoute><ApplicationList/></AdminRoute></PrivateRoute></Acceslogin>}/>
+
+
+                    <Route path = "/static" element={<Acceslogin><PrivateRoute><AdminRoute><Static/></AdminRoute></PrivateRoute></Acceslogin>}/>
+
+
                     <Route path = "/Addlesson/:course" element={<Acceslogin><PrivateRoute><AdminRoute><AddLesson/></AdminRoute></PrivateRoute></Acceslogin>}/>
                     <Route path = "/courses" element={<Acceslogin><PrivateRoute><Courses/></PrivateRoute></Acceslogin>}/>
                     <Route path="/courses/:title" element={<Acceslogin><PrivateRoute><LessonListPage/></PrivateRoute></Acceslogin>}></Route>
