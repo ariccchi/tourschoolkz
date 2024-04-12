@@ -192,7 +192,7 @@ const countTriesTwo = responseDataArray.filter(item => item.tries === 2).length;
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close-button" onClick={handleModalClose}>
+            <span className="close-button2" onClick={handleModalClose}>
               ×
             </span>
             <h2>Вы ответили на {countTriesOne2} из {responseDataLength2} вопросов теста с первой попытки! </h2>

@@ -51,3 +51,5 @@ const LineChart = ({ xValues, yValues, lineLabel, color }) => {
 };
 
 export default LineChart;
+
+

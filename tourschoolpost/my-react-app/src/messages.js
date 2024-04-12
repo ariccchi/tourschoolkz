@@ -469,6 +469,8 @@ const [selectAll, setSelectAll] = useState(false);
     setShowUserModal(false);
   };
 
+
+
   const sortedStudents = students.slice().sort((a, b) => {
     // Если у студента `a` нет последнего сообщения или его message_id равен null, то он остается на своем месте
     if (!a.last_message || !a.last_message.message_id) {
@@ -512,8 +514,12 @@ const [selectAll, setSelectAll] = useState(false);
         )}
             </div>
             <div className="student-lastmess">
-                {student.last_message.message_text && student.last_message.message_text.length > 20 ? `${student.last_message.message_text.slice(0, 20)}...` : student.last_message.message_text}
-            </div>
+  {student.last_message && student.last_message.message_text && student.last_message.message_text.length > 20
+    ? `${student.last_message.message_text.slice(0, 20)}...`
+    : (student.last_message && student.last_message.message_text)
+  }
+</div>
+
         </div>
     </div>
 ))}
@@ -524,12 +530,12 @@ const [selectAll, setSelectAll] = useState(false);
         {selectedStudent && (
         <div className="modal2" onClick={() => selectedStudent.id && ReadMess(selectedStudent.id, senderId)}>
 
-            <div className='topnamestud'>
+<a href={`/profile/${selectedStudent.id}`} className='topnamestud'>
               <div className='roundavatarka'>
               {selectedStudent.avatar && <img className='avamessages' src={`http://localhost:8888/tourschoolphp/${selectedStudent.avatar}`} alt={`${selectedStudent.name} ${selectedStudent.surname}'s Avatar`} />}
       </div>
               <h2>{selectedStudent.name} {selectedStudent.surname}</h2>
-            </div>
+            </a>
             
             <div className="chat-messages" ref={chatMessagesRef}>
       {messages[selectedStudent.id]?.map((message, index) => {
