@@ -59,9 +59,6 @@ letter-spacing: 0px;
 text-align: left;
 }
 
-.danicont {
-
-}
 
 .danni {
   color: rgb(110, 112, 115);
@@ -110,7 +107,7 @@ margin-top: 10px;
 
 .lessonblockprofile {
   width: 90%;
-height: 59px;
+height: auto;
 background: rgb(255, 255, 255);
 margin-top: 40px;
 border-radius: 15px;

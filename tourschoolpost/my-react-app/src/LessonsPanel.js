@@ -53,8 +53,8 @@ function LessonsPanel() {
     return(
         <>
         
-        <div className="header">
-            <div className="coursesh">{titleWithSpaces}</div>
+        <div className="header2">
+            <div className="coursesh2">{titleWithSpaces}</div>
             {data.role === 'admin' && (
   <Link className="Addlessonbutton"  to={`/Addlesson/${title}`}>Добавить урок
   </Link>
@@ -67,7 +67,7 @@ function LessonsPanel() {
                 </div>
             )}
         </div>
-        <div className="linewithnav">
+        <div className="linewithnav2">
          
             <div className={`textnav ${selectedNav === 'all' ? 'active' : ''}`} onClick={() => handleNavClick('all')}>Уроки</div>
             <div className={`textnav ${selectedNav === 'Туризм по направлениям' ? 'active' : ''}`} onClick={() => handleNavClick('Туризм по направлениям')}>Результаты</div>

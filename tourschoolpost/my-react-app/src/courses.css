@@ -9,21 +9,18 @@
     text-align: left;
 
 }
-.containercourses {
 
-    
-}
 .header {
     display: flex;
     justify-content: center; /* Выравнивание элементов по центру */
     align-items: center; /* Выравнивание по центру по вертикали */
 
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .header .coursesh {
     position: absolute; /* Позиционирование элемента */
-    left: 50%; /* Смещение влево на 50% */
+    left: 55%; /* Смещение влево на 50% */
     transform: translateX(-50%); /* Смещение назад на 50% ширины элемента */
 }
 
@@ -38,7 +35,6 @@
     justify-content: center;
     align-items: center;
     margin-top: 100px;
-    margin-left: 8%;
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap;
 }
@@ -80,7 +76,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center; 
-    margin-left: 17%;
+
 }
 .courselink {
     width: 324px;
@@ -149,5 +145,18 @@ a {
 }
 
 .containercourses {
-    margin-left: 2%;
+    margin-left: 280px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .containercourses {
+        margin-left: 40px;
+    }
+    .header .coursesh {
+        position: absolute; /* Позиционирование элемента */
+        left: 50%; /* Смещение влево на 50% */
+        transform: translateX(-50%); /* Смещение назад на 50% ширины элемента */
+    }
+    
 }
