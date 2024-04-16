@@ -1,0 +1,95 @@
+
+.navpanmini {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100px; 
+    background: rgb(89, 144, 217);
+    padding: 20px;
+    z-index: 1;
+   
+}
+.logomini {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 80%;
+    max-width: 600px;
+    
+    
+    
+}
+
+.Logomini {
+    width: 100px;
+    height: 100px;
+}
+.mainiconmini {
+    padding: 40px;
+    
+}
+.exiticonmini {
+    width: 50px;
+    height: 50px;
+    margin-top: 60px;
+    margin-bottom: auto;
+}
+.logocentermini {
+    margin-top: 110px;
+}
+.mainiconmini.active {
+    fill: green; /* Зеленый цвет иконки */
+    
+}
+
+.mainiconmini.active::after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: green; /* Зеленый кружочек под 
+    иконкой */
+    border-radius: 50%;
+}
+
+.hamburgermini {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+button {
+    border: 0;
+    
+}
+
+@media screen and (max-width: 768px) {
+    .hamburgermini {
+        display: block;
+        background-color:rgba(255, 255, 255, 0.0);
+        width: 100px;
+        height: 100px;
+        z-index: 3;
+    }
+    .navpanmini.hidden {
+        display: none;
+    }
+    .mainiconmini
+{
+
+  padding: 3vh;
+}
+}
+
+@media screen and (max-height: 768px) {
+   
+    .mainiconmini
+{
+
+  padding: 2.5vh;
+}
+}

@@ -1,0 +1,138 @@
+.lessonblock2 {
+    width: 100%;
+    height: auto;
+    border-radius: 23px;
+background: var(--maincol, #F7F9EF);
+/* button */
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+margin-top: 72px;
+display: flex;
+padding:  20px;
+flex-wrap: wrap;
+flex-direction: column;
+text-align: left;
+
+}
+.fullpage2 {
+    margin-left: 200px;
+    display: flex;
+    justify-content: space-around;
+}
+.ResultsFull {
+    width: 50%;
+}
+
+.LessonTitle2 {
+    color: #000;
+
+/* h2 podzag */
+font-family: Rubik;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.24px;
+}
+
+.lessonfinres {
+    border-radius: 58px;
+background: var(--maincol, #F7F9EF);
+box-shadow: 0px 4px 4px 0px #F2CD5C;
+color: #000;
+
+/* h3 text */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 200;
+line-height: normal;
+letter-spacing: 0.18px;
+width: 100px;
+text-align: center;
+margin-top: 10px;
+}
+
+.roundsummary2 {
+    width: 228px;
+    height: 228px;
+    flex-shrink: 0;
+    border-radius: 126px;
+    background: var(--maincol, #f5f7ee);
+    /* button */
+    box-shadow: 5px 10px 10px 5px rgba(0, 0, 0, 0.25);
+    margin-top: 100px;
+    display: flex; /* Добавлено */
+    justify-content: center; /* Добавлено */
+    align-items: center; /* Добавлено */
+    flex-direction: column;
+}
+
+.roundprocent2 {
+    color: #000;
+
+    /* Заг h2 */
+    font-family: Rubik;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    letter-spacing: 0.48px;
+}
+@media screen and (max-width: 768px) {
+    .fullpage2 {
+      margin-left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ResultsFull {
+      width: 100%; /* Изменено ширина */
+      justify-content: center;
+    }
+    .lessonblock2 {
+        width: 100%;
+        height: auto;
+        text-align: center;
+        margin: 0 20; /* Центрирование блока с отступом 20 пикселей с обеих сторон */
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .roundsummary2 {
+        margin: 0 auto; /* Центрирование блока */
+        width: 228px;
+        height: 228px;
+        flex-shrink: 0;
+        border-radius: 126px;
+        background: var(--maincol, #f5f7ee);
+        /* button */
+        box-shadow: 5px 10px 10px 5px rgba(0, 0, 0, 0.25);
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .lessonblock2 {
+        text-align: center;
+      }
+    
+      .lessonfinres {
+        text-align: center;
+        margin-top: 10px; /* или другой подходящий отступ сверху */
+        
+      }
+    
+  }
+  
+.roundprocenth2 {
+    color: #585858;
+
+/* р3 зщвяфп */
+font-family: Rubik;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+letter-spacing: 0.18px;
+}
