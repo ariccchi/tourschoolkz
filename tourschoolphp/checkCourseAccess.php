@@ -1,6 +1,6 @@
 <?php
 require_once "DatabaseModel.php";
-header("Access-Control-Allow-Origin: *");
+require_once "cors.php";
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
@@ -22,7 +22,7 @@ if (!empty($data->user_id) && !empty($data->course_name)) {
     JOIN courses ON user_courses.course_id = courses.id
     WHERE courses.course_name = '$course_name' AND user_courses.user_id = $user_id
     ";
-    
+
     $result = $database->query($sql);
 
     // Проверяем, есть ли результат
@@ -47,4 +47,3 @@ if (!empty($data->user_id) && !empty($data->course_name)) {
 
 // Закрываем соединение с базой данных
 $database->close();
-?>

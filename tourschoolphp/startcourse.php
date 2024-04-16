@@ -1,6 +1,6 @@
 <?php
 require_once "DatabaseModel.php";
-header("Access-Control-Allow-Origin: *");
+require_once "cors.php";
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
@@ -54,4 +54,3 @@ if (isset($user_id) && isset($course_id)) {
         'message' => 'Данные не заполнены',
     ]);
 }
-?>

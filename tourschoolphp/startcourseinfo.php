@@ -1,6 +1,6 @@
 <?php
 require_once "DatabaseModel.php";
-header("Access-Control-Allow-Origin: *");
+require_once "cors.php";
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
@@ -52,4 +52,3 @@ if ($result->num_rows > 0) {
 
 // Закрываем соединение с базой данных
 $database->close();
-?>
