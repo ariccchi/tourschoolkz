@@ -1,5 +1,6 @@
 <?php
 require_once "DatabaseModel.php";
+require_once "cors.php";
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -28,6 +29,16 @@ $role = isset($data['role']) ? $data['role'] : null;
 $city = isset($data['city']) ? $data['city'] : null;
 $timestamp = isset($data['timestamp']) ? $data['timestamp'] : null;
 
+function generateVerificationCode($length = 6)
+{
+    $characters = '0123456789';
+    $code = '';
+    for ($i = 0; $i < $length; $i++) {
+        $code .= $characters[random_int(0, strlen($characters) - 1)];
+    }
+    return $code;
+}
+$verificationCode = generateVerificationCode();
 // Проверка формата данных
 if (
   !is_string($username) ||
@@ -78,13 +89,33 @@ function hash_bcrypt($password, $cost = 10)
   $hash = crypt($password, '$2a$' . $cost . '$' . $salt);
   return $hash;
 }
+$sqlCheckEmail = "SELECT COUNT(*) AS count, email_verified FROM users WHERE email = ?";
+$stmtCheckEmail = $db->prepare($sqlCheckEmail);
+$stmtCheckEmail->bind_param("s", $email);
+$stmtCheckEmail->execute();
+$stmtCheckEmail->bind_result($emailCount, $emailVerified);
+$stmtCheckEmail->fetch();
+$stmtCheckEmail->close();
 
-// Хеширование пароля
+
+if ($emailCount > 0) {
+  if ($emailVerified == 1) {
+      echo json_encode(['error' => 'Этот email-адрес уже зарегистрирован и верифицирован']);
+      exit();
+  } else {
+      // Удалить существующую запись с email и email_verified = 0
+      $sqlDeleteUser = "DELETE FROM users WHERE email = ?";
+      $stmtDeleteUser = $db->prepare($sqlDeleteUser);
+      $stmtDeleteUser->bind_param("s", $email);
+      $stmtDeleteUser->execute();
+      $stmtDeleteUser->close();
+  }
+}
+
 $hashedPassword = hash_bcrypt($password, 10);
-$sqlInsertUser = "INSERT INTO users (name, surname,  password, email, registration_date, role, birthdate, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
+$sqlInsertUser = "INSERT INTO users (name, surname, password, email, registration_date, role, birthdate, city, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmtInsertUser = $db->prepare($sqlInsertUser);
-$stmtInsertUser->bind_param("ssssssss", $username, $surname, $hashedPassword, $email, $timestamp, $role, $dob, $city);
+$stmtInsertUser->bind_param("sssssssss", $username, $surname, $hashedPassword, $email, $timestamp, $role, $dob, $city, $verificationCode);
 $stmtInsertUser->execute();
 
 // Проверка успешности вставки пользователя

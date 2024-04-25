@@ -413,6 +413,7 @@ useEffect(() => {
 }, [videoRef.current]);
 
 useEffect(() => {
+
   const fetchData = async () => {
     try {
       const response = await fetch(`${BASE_URL}tourschoolphp/lessonvideo.php`, {
@@ -519,7 +520,7 @@ useEffect(() => {
   
   
 
-    }, [titleWithSpaces, containers, termins, videoEnding]);
+    }, [titleWithSpaces]);
   
 
     

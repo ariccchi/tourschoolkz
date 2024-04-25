@@ -1,9 +1,9 @@
 
 <?php
-define('DB_HOST', 'localhost');      // Хост базы данных
-define('DB_USER', 'admin');   // Имя пользователя базы данных
-define('DB_PASSWORD', 'root');   // Пароль пользователя базы данных
-define('DB_NAME', 'tourschool'); // Имя базы данных
+define('DB_HOST', 'localhost:3306');      // Хост базы данных
+define('DB_USER', 'toursch1_tourr354636');   // Имя пользователя базы данных
+define('DB_PASSWORD', 'StraWberryCuCumber636');   // Пароль пользователя базы данных
+define('DB_NAME', 'toursch1_tourschool'); // Имя базы данных
 
 
 // Кодировка для базы данных

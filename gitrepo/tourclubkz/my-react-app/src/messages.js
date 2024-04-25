@@ -6,6 +6,7 @@ import Navpanmini from './navpanmini';
 import { BASE_URL } from './config';
 import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-router-dom';
 const ListStudents = () => {
+  const prevScrollHeightRef = useRef(0);
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [message, setMessage] = useState('');
@@ -21,13 +22,22 @@ const ListStudents = () => {
 // Добавьте следующее в начале компонента
 const [imageLoading, setImageLoading] = useState(true);
 const [selectedStudents, setSelectedStudents] = useState([]);
+
+const [scrollRatio, setScrollRatio] = useState(0);
+const [messagesCont, setMessagesCont] = useState(30);
+const prevScrollTopRef = useRef(0);
   let prevDate = null;
 const [forwardpic, setForwardpic] = useState([]);
 const [selectAll, setSelectAll] = useState(false);
+
+const [prevScrollHeight, setPrevScrollHeight] = useState(0);
+
+
+const prevScrollRatioRef = useRef(0);
   const handleToggleRightChats = () => {
     setShowRightChats(!showRightChats);
   };
-
+  const messagesContRef = useRef(messagesCont);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,6 +78,7 @@ const [selectAll, setSelectAll] = useState(false);
 
     const interval = setInterval(() => {
       fetchData();
+  
     }, 1000); // обновление каждую секунду
   
     return () => clearInterval(interval); // Очистка интервала при размонтировании компонента
@@ -85,13 +96,27 @@ const [selectAll, setSelectAll] = useState(false);
       const container = chatMessagesRef.current;
       if (container) {
         const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 50;
-    
+        const isAtTop = container.scrollTop === 0; // Добавлено условие для верхней части скролла
+   
         if (isAtBottom) {
           setScrollPosition(container.scrollTop);
+
+        }
+
+        if (isAtTop) {
+          setMessagesCont((prevMessagesCont) => {
+            const newMessagesCont = prevMessagesCont + 30;
+            getMessages(selectedStudent.id, senderId, newMessagesCont); 
+            return newMessagesCont;
+          });
+        
+   
         }
       }
     };
-  
+
+
+    
     const chatContainer = chatMessagesRef.current;
     if (chatContainer) {
       chatContainer.addEventListener('scroll', handleScroll);
@@ -104,6 +129,7 @@ const [selectAll, setSelectAll] = useState(false);
     };
   }, [chatMessagesRef.current]);
   
+
   
   useEffect(() => {
     if (chatMessagesRef.current) {
@@ -125,7 +151,12 @@ const [selectAll, setSelectAll] = useState(false);
       };
     }
   }, [chatMessagesRef.current]);
-  
+  useEffect(() => {
+    if (selectedStudent) {             
+      getMessages(selectedStudent.id, senderId, messagesCont);
+    }
+  }, [selectedStudent, messagesCont]); // Add messagesCont to the dependency array
+
   useEffect(() => {
     if (shouldScrollToBottom && chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
@@ -180,9 +211,30 @@ const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     if (selectedStudent) {
-      getMessages(selectedStudent.id, senderId);
+      const interval = setInterval(() => {
+        getMessages(selectedStudent.id, senderId, messagesCont);
+      }, 1000);
+      return () => clearInterval(interval);
     }
-  }, [selectedStudent, senderId]);
+  }, [selectedStudent]);
+  
+  useEffect(() => {
+
+    if (chatMessagesRef.current) {
+      prevScrollHeightRef.current = chatMessagesRef.current.scrollHeight;
+    }
+  }, [messages]);
+  if (chatMessagesRef.current) {
+    const currentScrollTop = chatMessagesRef.current.scrollTop;
+
+
+  }
+  useEffect(() => {
+    // Восстанавливаем положение скролла после обновления сообщений
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight - prevScrollHeightRef.current;
+    }
+  }, [selectedStudent]);
 
   const handleStudentClick = async (student) => {
     setSelectedStudent(student);
@@ -201,23 +253,24 @@ const [selectAll, setSelectAll] = useState(false);
         await markMessagesAsRead(student.id, senderId);
       }
   
-      getMessages(student.id, senderId);
+      getMessages(student.id, senderId, messagesCont);
       ReadMess(student.id, senderId)
     } catch (error) {
       console.error('Error handling student click:', error);
     }
   };
-  
-  
-  
+  useEffect(() => {
+    messagesContRef.current = messagesCont;
+  }, [messagesCont]);
 
-  const getMessages = async (receiverId, senderId) => {
+  const getMessages = async (receiverId, senderId, messagesCont) => {
     try {
       const response = await axios.post(
         `${BASE_URL}tourschoolphp/getMessages.php`,
         JSON.stringify({
           receiver_user_id: receiverId,
-          sender_user_id: senderId
+          sender_user_id: senderId,
+          messagesCont: messagesContRef.current 
         }),
         {
           headers: {
@@ -227,17 +280,18 @@ const [selectAll, setSelectAll] = useState(false);
       );
   
       const messagesArray = Array.from(response.data);
+
       setMessages((prev) => ({
         ...prev,
         [receiverId]: messagesArray
       }));
-  
+
    
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
   };
-
+ 
 
   const ReadMess = async (receiverId, senderId) => {
     try {
@@ -313,7 +367,7 @@ const [selectAll, setSelectAll] = useState(false);
       if (response.data.success) {
         setMessage('');
         setAttachedFile(null);
-        getMessages(selectedStudent.id, senderId);
+        getMessages(selectedStudent.id, senderId, messagesCont);
       } else {
         console.error('Error sending message:', response.data.error);
       }
@@ -331,6 +385,7 @@ const [selectAll, setSelectAll] = useState(false);
       setSelectedStudents([]);
     }
   };
+  
   const closeModal = () => {
     setSelectedStudent(null);
   };
@@ -376,7 +431,6 @@ const [selectAll, setSelectAll] = useState(false);
     }
   };
   const [maxCharacters, setMaxCharacters] = useState(100);  
-
   useEffect(() => {
    
     const handleResize = () => {
@@ -432,6 +486,19 @@ const [selectAll, setSelectAll] = useState(false);
       </React.Fragment>
     ));
   };
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+      setPrevScrollHeight(chatMessagesRef.current.scrollHeight);
+    }
+  }, [messages]);
+  useEffect(() => {
+    // Восстанавливаем положение скролла после обновления сообщений
+    if (chatMessagesRef.current) {
+      const scrollDiff = chatMessagesRef.current.scrollHeight - prevScrollHeight;
+      chatMessagesRef.current.scrollTop += scrollDiff;
+    }
+  }, [messages, prevScrollHeight]);
+
 
   const handleSendButtonClick = async () => {
     console.log('Sending messages to selected students:', selectedStudents, showUserModal, forwardpic);
@@ -460,7 +527,7 @@ const [selectAll, setSelectAll] = useState(false);
       if (response.data.success) {
         setMessage('');
         setAttachedFile(null);
-        getMessages(selectedStudent.id, senderId);
+        getMessages(selectedStudent.id, senderId, messagesCont);
       } else {
         console.error('Error sending message:', response.data.error);
       }
@@ -469,7 +536,6 @@ const [selectAll, setSelectAll] = useState(false);
     }
     setShowUserModal(false);
   };
-
 
 
   const sortedStudents = students.slice().sort((a, b) => {

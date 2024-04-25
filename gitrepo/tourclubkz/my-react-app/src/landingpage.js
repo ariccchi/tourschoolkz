@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { BASE_URL } from './config';
 
 function LandingPage() {
+  
     const element1Ref = useRef(null);
     const element2Ref = useRef(null);
     const element3Ref = useRef(null);
@@ -205,14 +206,14 @@ function LandingPage() {
                     </div>
                     <div className="aboutusbox">
                         <div className="boxfromaboutus greenland">
-                            <img src='./plane.svg'></img>
+                            <img src='./messages.svg'></img>
                         </div>
                         <div className="zagaboutus">Сотрудничество</div>
                         <div className="infoaboutus">Наладили плодотворное сотрудничество с ведущими туристическими компаниями и операторами, что гарантирует моим клиентам доступ к самым выгодным предложениям на рынке.</div>
                     </div>
                     <div className="aboutusbox">
                         <div className="boxfromaboutus blueland">
-                            <img src='./plane.svg'></img>
+                            <img src='./profile.svg'></img>
                         </div>
                         <div className="zagaboutus">Студенты</div>
                         <div className="infoaboutus">За 10 лет работы нашего курса 70% выпускников успешно реализовали себя в туристической сфере</div>
@@ -238,7 +239,7 @@ function LandingPage() {
 </div>
                       </div>
             </div>
-            <div ref={element1Ref} className={element1Visible ? 'dreamplush slideInLeft' : 'dreamplush'}>Открой мир безграничных возможностей c курсом "Стань восстребованным турагентом "!</div>
+            <div ref={element1Ref} className={element1Visible ? 'dreamplush slideInLeft' : 'dreamplush'}>Открой мир безграничных возможностей c курсом "Стань восстребованным турагентом! "</div>
 
 
 <div className="programmcourse">

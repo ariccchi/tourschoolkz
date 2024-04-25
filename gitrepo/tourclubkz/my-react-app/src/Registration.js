@@ -22,6 +22,28 @@ const [dob, setDob] = useState("");
 const [sentData, setSentData] = useState(null);
 const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
+const [timeLeft, setTimeLeft] = useState(60);
+  const [isActive, setIsActive] = useState(false);
+
+
+  const [verificationCode, setVerificationCode] = useState("");
+
+  useEffect(() => {
+    let countdown;
+
+    if (page === 3) {
+      // Start the timer only when page is 3
+      countdown = setInterval(() => {
+        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+      }, 1000);
+    }
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      setIsActive(true);
+    }
+
+    return () => clearInterval(countdown); // Cleanup
+  }, [timeLeft, page]); // Add page as a dependency
 
 const date = new Date(); // текущая дата и время
 const year = date.getFullYear();
@@ -55,61 +77,7 @@ const handleLoginClick = () => {
       setMessage('Заполните все поля.');
     }
   };
-  // useEffect(() => {
-  //   const isCuratorUsernameValid = async () => {
-  //     if (!curatorUsername) {
-  //       return true;
-  //     }
-
-  //     try {
-  //       const response = await axios.get(
-  //        `${BASE_URL}backend/check-curator-username.php`,
-  //         {
-  //           params: {
-  //             curatorUsername: curatorUsername
-  //           }
-  //         }
-  //       );
-
-  //       return response.data.success;
-  //     } catch (error) {
-  //       console.error("An error occurred:", error);
-  //       return false;
-  //     }
-  //   };
-
-  //   const isFormValid = () => {
-  //     return (
-  //       username.trim().length > 0 &&
-  //       email.trim().length > 0 &&
-  //       surname.trim().length > 0 &&
-  //       password.trim().length > 0 &&
-  //       confirmPassword.trim().length > 0 &&
-  //       dob.trim().length > 0 &&
-  //       (curatorUsername ? isCuratorUsernameValid() : true)
-  //     );
-  //   };
-
-  //   setSubmitButtonDisabled(!isFormValid());
-
-  //   const inputFields = [username, surname, email, password, confirmPassword, dob, curatorUsername];
-  //   const setSubmitButtonDisabledOnInput = () => setSubmitButtonDisabled(!isFormValid());
-
-  //   inputFields.forEach((field) => {
-  //     if (field && field.addEventListener) {
-  //       field.addEventListener("input", setSubmitButtonDisabledOnInput);
-  //     }
-  //   });
-
-  //   return () => {
-  //     inputFields.forEach((field) => {
-  //       if (field && field.removeEventListener) {
-  //         field.removeEventListener("input", setSubmitButtonDisabledOnInput);
-  //       }
-  //     });
-  //   };
-  // }, [username, surname, email, password, confirmPassword, dob, curatorUsername]);
-
+ 
   const handleSubmit = async (event) => {
     const data = {
         name: username,
@@ -155,9 +123,10 @@ const handleLoginClick = () => {
       if (responseData.success) {
         // Обработка успешного выполнения, например, перенаправление пользователя или отображение сообщения
         console.log("Регистрация прошла успешно!");
-        navigate('/login')
+        setMessage('');
+        setPage(3);
       } else {
-        // Обработка ошибки, например, вывод сообщения об ошибке
+        setMessage(responseData.error)
         console.error("Ошибка при регистрации:", responseData.error);
       }
       setSentData(responseData);
@@ -166,7 +135,137 @@ const handleLoginClick = () => {
       console.error("An error occurred:", error);
     }
     
+
+
+    const data2 = {
+      email: email
+    };
+    
+      try {
+        const response2 = await axios.post(
+          `${BASE_URL}tourschoolphp/emailconf.php`,
+          JSON.stringify(data2),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+    
+        if (response2.data.success) {
+         console.log("сообщение отправленно");
+        } else {
+          console.error('Error sending message:', response2.data.error);
+        }
+      } catch (error) {
+  if (error.response) {
+      // Серверная ошибка
+      console.error('Server Error:', error.response.data);
+  } else if (error.request) {
+      // Ошибка при отправке запроса
+      console.error('Request Error:', error.request);
+  } else {
+      // Другая ошибка
+      console.error('Error:', error.message);
+  }
+}
   };
+
+
+
+  const handleSubmitEmail = async (event) => {
+    const data = {
+        name: username,
+        surname: surname,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        dob: dob,
+        curatorUsername: curatorUsername,
+        role: "student",
+        city: "Almaty",
+        timestamp: formattedTimestamp,
+        verificationCode: verificationCode,
+      };
+  
+      console.log("Registration Data:", data);
+    event.preventDefault();
+    try {
+     
+    
+      const response = await axios.post(
+       `${BASE_URL}tourschoolphp/emailconfirm.php`,
+        JSON.stringify({
+          email: email,
+          verificationCode: verificationCode,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      const responseData = response.data;
+      
+      if (responseData.success) {
+ 
+        console.log("Регистрация прошла успешно!");
+        navigate('/login')
+     
+      } else {
+        setMessage(responseData.error)
+        console.error("Ошибка при регистрации:", responseData.error);
+      }
+      setSentData(responseData);
+      setData(responseData);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+    
+
+  };
+
+
+  const handleClickEmailResend = async (event) => {
+
+    const data2 = {
+      email: email
+    };
+    
+      try {
+        const response2 = await axios.post(
+          `${BASE_URL}tourschoolphp/emailconf.php`,
+          JSON.stringify(data2),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+    
+        if (response2.data.success) {
+         console.log("сообщение отправленно");
+        } else {
+          console.error('Error sending message:', response2.data.error);
+        }
+      } catch (error) {
+  if (error.response) {
+      // Серверная ошибка
+      console.error('Server Error:', error.response.data);
+  } else if (error.request) {
+      // Ошибка при отправке запроса
+      console.error('Request Error:', error.request);
+  } else {
+      // Другая ошибка
+      console.error('Error:', error.message);
+  }
+}
+    setTimeLeft(60); // Reset timer to 60 seconds
+    setIsActive(false); // Make the button inactive again
+  };
+
+
 
     return(
         <div className="containerreg">
@@ -244,6 +343,39 @@ const handleLoginClick = () => {
 </div>
 </>
   )}
+
+
+{page === 3 && (
+                <>
+          <div id="myModal" className="modalemail">
+
+
+<div className="modal-contentemail">
+ <img src='/emailver.svg' className="svgemail"></img>
+  <p className="emailverp"> Подтвердите почту</p>
+  <p className="emailverp2">На вашу почту пришло письмо с кодом подтверждения, введите этот код ниже</p>
+  <button className={`timer-button ${isActive ? 'active' : ''}`} disabled={!isActive}   onClick={isActive ? handleClickEmailResend : null} >
+      {isActive ? "Отправить код повторно" : `Отправить повторно через ${timeLeft} секунд`}
+    </button>
+
+  <input type="text" 
+  className="emailver"
+       maxLength="6" 
+       placeholder="xxxxxx" 
+       pattern="[0-9]{6}" 
+       value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} 
+       ></input>
+       {message && <div className="error-messagereg">{message}</div>}
+
+       <div className="emailconfver" onClick={handleSubmitEmail}>Подтвердить почту</div>
+</div>
+
+</div>
+</>
+  )}
+
+
+
     </div>
             </div>
         <img src="/mountains.jpeg" alt='bg' className="fullscreen-imagereg"/>

@@ -24,9 +24,8 @@
     position: fixed;
     top: 0;
     left: 0;
-  
-    z-index: 100; /* Make sure it appears above other elements */
-    background-color: white;
+    z-index: 100; 
+    
 }
 
 .tourlogoland {
@@ -50,6 +49,8 @@ font-weight: 300;
 line-height: 21px;
 letter-spacing: 0px;
 text-align: center;
+cursor: pointer;
+
 }
 
 .tourclubhead {
@@ -234,6 +235,21 @@ top: 20px;
  .womanclassname {
     height: 85%;
  }
+ .headerlanding {
+    display: flex;
+    margin-left: 40px;
+    margin-right: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    width: 85%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  
+    z-index: 100; /* Make sure it appears above 
+}
 }
 @media (max-width: 966px) {
     .bigtextlandup {
@@ -249,6 +265,22 @@ top: 20px;
  .womanclassname {
     height: 85%;
  }
+ .headerlanding {
+    display: flex;
+    margin-left: 50px;
+    margin-right: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    width: 85%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  
+    z-index: 100; /* Make sure it appears above other elements */
+
+}
 }
 @media (max-width: 480px) {
     .bigtextlandup {
@@ -270,7 +302,7 @@ font-weight: 200;
 line-height: 34px;
 letter-spacing: 0px;
 text-align: center;
-box-shadow: 0px 27px 50px -12px rgba(74, 149, 246, 0.39);
+box-shadow: 2px 4px 8px 5px rgba(89, 144, 217, 0.25);
 background: rgb(255, 255, 255);
 width: 100%;
 height: 125px;
@@ -340,7 +372,7 @@ line-height: 28px;
 letter-spacing: 0px;
 text-align: center;
 border-radius: 44px;
-box-shadow: 0px 4px 14px 2px rgba(89, 144, 217, 0.70);
+box-shadow: 2px 4px 8px 5px rgba(89, 144, 217, 0.25);
 background: rgb(255, 255, 255);
 width: 493px;
 height: 120px;
@@ -388,7 +420,7 @@ margin-right: 50px;
 }
 .aboutusbox {
     border-radius: 46px;
-box-shadow: 0px 8px 4px 0px rgba(89, 144, 217, 0.60);
+box-shadow: 2px 4px 8px 5px rgba(89, 144, 217, 0.25);
 background: rgb(255, 255, 255);
 width: 288px;
 height: 388px;
@@ -615,7 +647,7 @@ line-height: 25px;
 letter-spacing: 0px;
 text-align: center;
 border-radius: 82px;
-box-shadow: 0px 4px 4px 6px rgba(89, 144, 217, 0.34);
+box-shadow: 2px 4px 8px 5px rgba(89, 144, 217, 0.25);
 background: rgb(255, 255, 255);
 padding: 30px;
 margin-top: 20px;
@@ -746,7 +778,7 @@ margin-top: 41px;
 .getconsland {
     color: rgb(0, 0, 0);
 font-family: Rubik;
-font-size: 18px;
+font-size: 23px;
 font-weight: 500;
 line-height: 25px;
 letter-spacing: 0px;

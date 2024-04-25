@@ -20,7 +20,9 @@ import Checkstud from './checkstudent';
 import LandingPage from './landingpage';
 import ApplicationList from './Applicationlist';
 import Static from './static';
+import Loginjwtcheck from './loginjwtcheck';
 function App() {
+    
     return (
         <div className="App">
             <Routes>

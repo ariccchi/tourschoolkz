@@ -6,7 +6,10 @@ import './profile.css';
 import axios from 'axios';
 import StudentList from "./studentlist";
 import { BASE_URL } from './config';
+import EmailCheck from "./emailcheck";
+import Authcode from "./authocode";
 function Profile() {
+  
     const token = localStorage.getItem('token');
     const [data, setData] = useState([]);
     const [data2, setData2] = useState([]);
@@ -282,7 +285,7 @@ function Profile() {
 
               )}
                   {isCurator  && (
-              
+              <>
               <a href="/applications" className="knopkaApplication">
                 <div className="applicationtextprof">Заявки</div>
                 <div className="stoproc">
@@ -291,20 +294,20 @@ function Profile() {
              
               </a>
       
-              
-              
+      <Authcode />
+      </>
       
                     )}
 
 {isAdmin  && (
-              
+              <>
               <a href="/static" className="knopkaApplication">
                 <div className="applicationtextprof">Статистика</div>
               </a>
-      
-              
-              
-      
+   
+     <Authcode />
+ 
+      </>
                     )}
             </div>
             <Navpanmini />
