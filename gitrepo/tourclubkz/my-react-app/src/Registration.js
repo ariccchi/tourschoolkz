@@ -156,6 +156,7 @@ const handleLoginClick = () => {
          console.log("сообщение отправленно");
         } else {
           console.error('Error sending message:', response2.data.error);
+          setMessage(response2.data.error);
         }
       } catch (error) {
   if (error.response) {
@@ -330,8 +331,9 @@ const handleLoginClick = () => {
   max={new Date().toISOString().split("T")[0]}/>
         </div>
         <div className="input-groupreg">
-            <label htmlFor="email" className="labelloginreg">Email куратора</label>
-            <input type="email" id="password" name="password"   maxLength="40" className="inputloginreg"      value={curatorUsername} onChange={(e) => setCuratorUsername(e.target.value)} />
+            <label htmlFor="email" className="labelloginreg">Код куратора</label>
+            <input type="text" id="password" 
+            name="password"   maxLength="6" className="inputloginreg"      value={curatorUsername} onChange={(e) => setCuratorUsername(e.target.value)} />
         </div>
 
     <div className="forgoth2reg" onClick={handleLoginClick}>

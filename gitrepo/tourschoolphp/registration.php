@@ -61,19 +61,36 @@ if ($password !== $confirmPassword) {
   exit();
 }
 
-$sqlSelectCuratorId = "SELECT id FROM users WHERE email = ? AND role = 'curator'";
+$sqlSelectCuratorId = "SELECT curator_id, student_id FROM authcode WHERE unic_code = ?";
 $stmtSelectCuratorId = $db->prepare($sqlSelectCuratorId);
 $stmtSelectCuratorId->bind_param("s", $curatorUsername);
 $stmtSelectCuratorId->execute();
-$stmtSelectCuratorId->bind_result($curator_id);
+$stmtSelectCuratorId->bind_result($curator_id, $student_id);
 $stmtSelectCuratorId->fetch();
 $stmtSelectCuratorId->close();
 
 // Если куратор не найден, прерываем выполнение
 if (!$curator_id) {
   // Возвращаем ошибку или прерываем выполнение
-  die('Ошибка регистрации: указанный email не принадлежит куратору.');
+  die('Ошибка регистрации: указанный код не принадлежит куратору.');
 }
+
+if ($student_id !== null) {
+  // Получаем email_verified из таблицы users для данного student_id
+  $sqlCheckEmailVerified = "SELECT email_verified FROM users WHERE id = ?";
+  $stmtCheckEmailVerified = $db->prepare($sqlCheckEmailVerified);
+  $stmtCheckEmailVerified->bind_param("i", $student_id);
+  $stmtCheckEmailVerified->execute();
+  $stmtCheckEmailVerified->bind_result($email_verified);
+  $stmtCheckEmailVerified->fetch();
+  $stmtCheckEmailVerified->close();
+
+  if ($email_verified == 1) {
+      die('Ошибка регистрации: данный unic_code уже использован для верифицированного пользователя.');
+  }
+}
+
+
 
 $sqlSelectCuratorCity = "SELECT city FROM users WHERE id = ?";
 $stmtSelectCuratorCity = $db->prepare($sqlSelectCuratorCity);
@@ -130,6 +147,13 @@ if ($stmtInsertUser->affected_rows > 0) {
   $stmtUpdateUser->execute();
   $stmtUpdateUser->close();
 
+  
+  $sqlUpdateCode = "UPDATE authcode SET student_id = ? WHERE unic_code = ?";
+  $stmtUpdateCode = $db->prepare($sqlUpdateCode);
+  $stmtUpdateCode->bind_param("ii", $user_id, $curatorUsername);
+  $stmtUpdateCode->execute();
+  $stmtUpdateCode->close();
+  
   // Отправка успешного ответа
   echo json_encode(['success' => true]);
 } else {

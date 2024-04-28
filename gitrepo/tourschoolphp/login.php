@@ -39,7 +39,11 @@ class UserLogin
                             echo json_encode(array('status' => 'blocked', 'block_reason' => $rowBlocked['block_reason']));
                             return;
                         }
-
+                        if ($user['email_verified'] == 0) {
+                            // Email не верифицирован
+                            echo json_encode(array('status' => 'error', 'message' => 'Email not verified'));
+                            return;
+                        }
                         $key = "1b815f4129c84de40c2ae2a24f876262454a5f0cfda9bb10a0948bd37d6567c8"; // Замените на свой секретный ключ
                         $payload = array(
                             "sub" => $user['id'], // ID пользователя

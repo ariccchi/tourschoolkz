@@ -12,24 +12,31 @@ function MyApplicationList() {
   const [deletedApplications, setDeletedApplications] = useState([]); // Track deleted applications
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [appToDelete, setAppToDelete] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
    const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
         const id = decodedToken.sub;
 
 
-
+        const [isFirstLoad, setIsFirstLoad] = useState(true);
+    
         useEffect(() => {
+       
           const intervalId = setInterval(async () => {
-            try {
+            try {  
+            
               const response = await axios.get(`${BASE_URL}tourschoolphp/MyApplicationlist.php?id=${id}`);
               setApplications(response.data);
             } catch (error) {
               console.error('Ошибка при загрузке данных:', error);
+            } finally {
+              setIsLoading(false);
+    
             }
           }, 1000); // Adjust interval as needed (1000 ms = 1 second)
         
           return () => clearInterval(intervalId); // Clean up interval on unmount
+
         }, []);
 
 
@@ -139,7 +146,13 @@ function MyApplicationList() {
       />
    
    <div className="myapplicationlink">Выполненные заявки</div>
-
+   {isLoading ? (
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <span>Загрузка...</span>
+          </div>
+        ) : (
+          <>
       {currentItems.map(app => (
         <div 
           key={app.id} 
@@ -166,7 +179,8 @@ function MyApplicationList() {
 
         </div>
       ))}
-
+</>
+     )}
       <Pagination 
         itemsPerPage={itemsPerPage} 
         totalItems={applications.length} 

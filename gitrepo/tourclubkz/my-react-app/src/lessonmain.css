@@ -86,6 +86,7 @@ font-weight: 500;
 line-height: normal;
 letter-spacing: 0.24px;
 margin-top: 24px;
+animation: slideIn 1s ease-in-out forwards;
 }
 
 .pagination {
@@ -219,3 +220,16 @@ text-align: center;
     letter-spacing: 0.24px;
     margin: 35px 132px;
   }
+
+
+  @keyframes slideIn {
+    from {
+        transform: translateX(-500px);
+      opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  

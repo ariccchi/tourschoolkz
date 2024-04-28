@@ -5,7 +5,7 @@ import AllApplicationList from "./AllApplicationlist";
 import MyApplicationList from "./MyApplicationlist";
 
 function ApplicationList() {
-  const [showMyApplications, setShowMyApplications] = useState(true);
+  const [showMyApplications, setShowMyApplications] = useState(false);
 
   const toggleApplications = () => {
     setShowMyApplications(prevState => !prevState);

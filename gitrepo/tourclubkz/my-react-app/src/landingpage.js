@@ -279,9 +279,9 @@ function LandingPage() {
             <label htmlFor="name" className="labelnamelanding"></label>
             <input type="text" id="text" name="text" placeholder="Имя" className="inputnameland"     maxLength="25" value={name} onChange={(e) => setName(e.target.value)} />
             <label htmlFor="name" className="labelnamelanding"></label>
-            <input type="text" id="text" name="text" placeholder="Номер телефона" className="inputnameland"     maxLength="25" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <input type="tel" id="text" name="text" placeholder="Номер телефона" className="inputnameland"     maxLength="25" value={phone} onChange={(e) => setPhone(e.target.value)} />
             <label htmlFor="name" className="labelnamelanding"></label>
-            <input type="text" id="text" name="text" placeholder="Электронная почта" className="inputnameland"     maxLength="25" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="email" id="text" name="text" placeholder="Электронная почта" className="inputnameland"     maxLength="25" value={email} onChange={(e) => setEmail(e.target.value)} />
             <div className="submitbuttonland" onClick={handleSubmit}>
     Записаться
 </div> 

@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 function Navpan() {
     const [activeIcon, setActiveIcon] = useState("");
     const location = useLocation();
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const [token, setToken] = useState(''); 
     const [knopka, setKnopka] = useState(true);
     const toggleNav = () => {

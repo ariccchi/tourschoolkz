@@ -8,7 +8,7 @@ function Navpan() {
     const token = localStorage.getItem('token');
     const [activeIcon, setActiveIcon] = useState("");
     const location = useLocation();
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const [knopka, setKnopka] = useState(true);
     const [data, setData] = useState([]);
     const decodedToken = jwtDecode.jwtDecode(token);

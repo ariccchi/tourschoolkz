@@ -17,7 +17,7 @@ function AllApplicationList() {
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [appToSuccess, setAppToSuccess] = useState(null);
-   
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
 
 
     const [showUnSuccessModal, setShowUnSuccessModal] = useState(false);
@@ -29,26 +29,26 @@ function AllApplicationList() {
         const decodedToken = jwtDecode(token);
         const id = decodedToken.sub;
 
+        const [isLoading, setIsLoading] = useState(true);
 
-
-  // Fetch data on component mount
   useEffect(() => {
-  
-
    
-    const intervalId = setInterval(async () => {
-     
-      try {
-        const response = await axios.get(`${BASE_URL}tourschoolphp/Applicationlist.php`);
-        setApplications(response.data);
-      } catch (error) {
-        console.error('Ошибка при загрузке данных:', error);
+      const intervalId = setInterval(async () => {
+        try {
+        
+          const response = await axios.get(`${BASE_URL}tourschoolphp/Applicationlist.php`);
+          setApplications(response.data);
+        } catch (error) {
+          console.error('Ошибка при загрузке данных:', error);
+        } finally {
+          setIsLoading(false);
+        
+      
       }
-  
-  
     }, 1000); // Adjust interval as needed (1000 ms = 1 second)
-
+        
     return () => clearInterval(intervalId); // Clean up interval on unmount
+
   }, []);
 
 
@@ -290,8 +290,14 @@ function AllApplicationList() {
         onChange={handleSearchChange}
       />
    
-   <div className="myapplicationlink">Выполненные заявки</div>
 
+   {isLoading ? (
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <span>Загрузка...</span>
+          </div>
+        ) : (
+          <>
       {currentItems.map(app => (
         <div 
           key={app.id} 
@@ -317,7 +323,8 @@ function AllApplicationList() {
             </div>
         </div>
       ))}
-
+</>
+     )}
       <Pagination 
         itemsPerPage={itemsPerPage} 
         totalItems={applications.length} 

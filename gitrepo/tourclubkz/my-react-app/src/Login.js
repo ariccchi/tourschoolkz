@@ -131,7 +131,9 @@ if (data.status === 'success') {
     navigate('/profile');
 } else if (data.status === 'blocked') {
     setMessage(`Авторизация не удалась. Пользователь заблокирован. Причина: ${data.block_reason}`);
-} else {
+  } else if (data.status === 'error' && data.message === 'Email not verified') {
+    setMessage('Авторизация не удалась. Пользователя не существует.');
+  }  else {
     setMessage('Авторизация не удалась. Пожалуйста, попробуйте еще раз.');
 }
 
